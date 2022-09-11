@@ -1,0 +1,8 @@
+$base-box-shadow:0px 0px 12px rgba(0, 0, 0, 0.12);
+$base-border-radius:5px;
+
+@mixin divInitialization($bs:$base-box-shadow,$br:$base-border-radius) {
+  box-shadow: $bs;
+  border-radius: $br;
+  overflow: hidden;
+}
