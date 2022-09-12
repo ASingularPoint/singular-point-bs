@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
       next({ path: "/" });
       NProgress.done();
     } else {
-      if (router.hasRoute(to.name || "")) {
+      if (!router.hasRoute(to.name || "")) {
         addRoutes(getRoutes(), mainRouteName).then(({ flat }) => {
           const toMenu = flat.find((item) => item.fullPath === to.fullPath);
           if (toMenu) next({ name: toMenu.name });

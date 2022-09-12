@@ -14,39 +14,51 @@
       </el-icon>
     </div>
     <el-menu
-      default-active="2"
+      default-active="/"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
+      router
       text-color="rgb(48, 49, 51)"
       @open="handleOpen"
       @close="handleClose"
     >
-      <el-sub-menu index="1">
-        <template #title>
-          <el-icon><Location /></el-icon>
-          <span>Navigator One</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item two</el-menu-item>
-        </el-menu-item-group>
-      </el-sub-menu>
-      <el-menu-item index="2">
-        <el-icon><icon-menu /></el-icon>
-        <template #title>Navigator Two</template>
-      </el-menu-item>
+      <div v-for="(item, index) in menuList" :key="index">
+        <el-sub-menu v-if="item.children.length !== 0" :index="item.path">
+          <template #title>
+            <el-icon>
+              <component :is="item.icon"></component>
+            </el-icon>
+            <span>{{ item.title }}</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item
+              v-for="(children, index) in item.children"
+              :key="index"
+              :index="children.path"
+              >{{ children.title }}</el-menu-item
+            >
+          </el-menu-item-group>
+        </el-sub-menu>
+
+        <el-menu-item v-else :index="item.path">
+          <el-icon>
+            <component :is="item.icon"></component>
+          </el-icon>
+          <template #title>{{ item.title }}</template>
+        </el-menu-item>
+      </div>
     </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-  Menu as IconMenu,
-  Location,
-  Fold,
-  Expand,
-} from "@element-plus/icons-vue";
+// import {
+//   Menu as IconMenu,
+//   Location,
+//   Fold,
+//   Expand,
+// } from "@element-plus/icons-vue";
 import { getRouterList } from "@/permission";
 
 const menuList = ref<MenuRecord[]>([]);
@@ -54,6 +66,7 @@ const menuList = ref<MenuRecord[]>([]);
 menuList.value = [...getRouterList()];
 
 const isCollapse = ref(false);
+
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };
