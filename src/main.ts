@@ -6,6 +6,10 @@ import store from "./store";
 import "./styles/reset.css";
 // element icon
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+// el-message
+import "element-plus/theme-chalk/el-message.css";
+// auth
+import { routerBeforeEach } from "./permission";
 
 const app = createApp(App);
 
@@ -15,3 +19,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.use(store).use(router).mount("#app");
+// auth
+routerBeforeEach();

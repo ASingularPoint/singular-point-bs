@@ -4,8 +4,7 @@ import "nprogress/nprogress.css";
 import getPageTitle from "@/utils/getPageTitle";
 import constantsRoutes from "@/router/constantsRoutes";
 import { useUserStore } from "@/store/modules/user";
-
-const store = useUserStore();
+import { StateTree } from "pinia";
 
 NProgress.configure({
   showSpinner: false,
@@ -15,44 +14,48 @@ NProgress.configure({
 
 export const mainRouteName = "AppMain";
 
-router.beforeEach((to, from, next) => {
-  NProgress.start();
+export function routerBeforeEach() {
+  const store = useUserStore();
 
-  // page title
-  document.title = getPageTitle(to.meta);
+  router.beforeEach((to, from, next) => {
+    NProgress.start();
 
-  const accessToken = store.accessToken;
+    // page title
+    document.title = getPageTitle(to.meta);
 
-  if (accessToken) {
-    if (to.name === "login") {
-      next({ path: "/" });
-      NProgress.done();
+    const accessToken = store.accessToken;
+
+    if (accessToken) {
+      if (to.name === "login") {
+        next({ path: "/" });
+        NProgress.done();
+      } else {
+        if (!router.hasRoute(to.name || "")) {
+          addRoutes(getRoutes(store), mainRouteName).then(({ flat }) => {
+            const toMenu = flat.find((item) => item.fullPath === to.fullPath);
+            if (toMenu) next({ name: toMenu.name });
+            else next({ name: mainRouteName });
+          });
+        } else {
+          next();
+        }
+      }
     } else {
-      if (!router.hasRoute(to.name || "")) {
-        addRoutes(getRoutes(), mainRouteName).then(({ flat }) => {
-          const toMenu = flat.find((item) => item.fullPath === to.fullPath);
-          if (toMenu) next({ name: toMenu.name });
-          else next({ name: mainRouteName });
-        });
+      if (to.meta.bypassLogin !== true) {
+        next(`/login?redirect=${to.path}`);
       } else {
         next();
       }
+      NProgress.done();
     }
-  } else {
-    if (to.meta.bypassLogin !== true) {
-      next(`/login?redirect=${to.path}`);
-    } else {
-      next();
-    }
-    NProgress.done();
-  }
-});
+  });
+}
 
 router.afterEach(() => {
   NProgress.done();
 });
 
-export function getRoutes(): MenuRecord[] {
+export function getRoutes(store: StateTree): MenuRecord[] {
   const menuPerms = store.menuPerms;
   return [...constantsRoutes, ...menuPerms];
 }

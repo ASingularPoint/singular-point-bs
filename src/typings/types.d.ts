@@ -20,3 +20,9 @@ interface UserData {
   userId: string;
   userName: string;
 }
+
+// loginparams
+interface UserLoginParams {
+  accountName: string;
+  password: string;
+}

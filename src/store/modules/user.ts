@@ -8,7 +8,7 @@ interface State {
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
-    accessToken: "1",
+    accessToken: "",
     userInfo: {
       userId: "",
       userName: "",
@@ -22,5 +22,9 @@ export const useUserStore = defineStore("user", {
     authLogin() {
       this.accessToken = "1";
     },
+    logout() {
+      this.accessToken = "";
+    },
   },
+  persist: true,
 });
