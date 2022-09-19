@@ -4,7 +4,6 @@ import "nprogress/nprogress.css";
 import getPageTitle from "@/utils/getPageTitle";
 import constantsRoutes from "@/router/constantsRoutes";
 import { useUserStore } from "@/store/modules/user";
-import { StateTree } from "pinia";
 
 NProgress.configure({
   showSpinner: false,
@@ -31,11 +30,13 @@ export function routerBeforeEach() {
         NProgress.done();
       } else {
         if (!router.hasRoute(to.name || "")) {
-          addRoutes(getRoutes(store), mainRouteName).then(({ flat }) => {
-            const toMenu = flat.find((item) => item.fullPath === to.fullPath);
-            if (toMenu) next({ name: toMenu.name });
-            else next({ name: mainRouteName });
-          });
+          addRoutes(getRoutes(store.menuPerms), mainRouteName).then(
+            ({ flat }) => {
+              const toMenu = flat.find((item) => item.fullPath === to.fullPath);
+              if (toMenu) next({ name: toMenu.name });
+              else next({ name: mainRouteName });
+            }
+          );
         } else {
           next();
         }
@@ -55,9 +56,8 @@ router.afterEach(() => {
   NProgress.done();
 });
 
-export function getRoutes(store: StateTree): MenuRecord[] {
-  const menuPerms = store.menuPerms;
-  return [...constantsRoutes, ...menuPerms];
+export function getRoutes(menu: MenuRecord[]): MenuRecord[] {
+  return constantsRoutes.concat(menu);
 }
 
 /**

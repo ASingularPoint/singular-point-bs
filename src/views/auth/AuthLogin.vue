@@ -11,6 +11,7 @@
           status-icon
           :rules="rules"
           class="demo-ruleForm"
+          @keydown.enter="submitForm(ruleFormRef)"
         >
           <el-form-item label="" prop="accountName">
             <el-input
@@ -51,6 +52,13 @@
 import { reactive, ref } from "vue";
 import type { FormInstance } from "element-plus";
 import { UserLogin } from "@/api/auth/login";
+import md5 from "crypto-js/md5";
+import { ElMessage } from "element-plus";
+import { useUserStore } from "@/store/modules/user";
+import { useRouter } from "vue-router";
+
+const store = useUserStore();
+const Router = useRouter();
 
 const ruleFormRef = ref<FormInstance>();
 
@@ -83,8 +91,20 @@ const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate((valid) => {
     if (valid) {
-      UserLogin(ruleForm).then((res) => {
-        console.log(res);
+      UserLogin({
+        accountName: ruleForm.accountName,
+        password: md5(ruleForm.password).toString().toUpperCase(),
+      }).then((res) => {
+        store.authLogin(res).then(() => {
+          Router.replace({
+            path: "/",
+          });
+        });
+        ElMessage({
+          showClose: true,
+          message: "登录成功",
+          type: "success",
+        });
       });
     } else {
       console.log("error submit!");

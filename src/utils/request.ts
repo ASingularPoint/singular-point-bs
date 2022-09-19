@@ -9,7 +9,14 @@ import { useUserStore } from "@/store/modules/user";
 
 const userStore = useUserStore();
 
-const instance: AxiosInstance = axios.create({
+interface IAxiosInstance extends AxiosInstance {
+  (config: AxiosRequestConfig): IAxiosPromise;
+  (url: string, config?: AxiosRequestConfig): IAxiosPromise;
+}
+
+export type IAxiosPromise<T = any> = Promise<T>;
+
+const instance: IAxiosInstance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 20000,
 });

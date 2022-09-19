@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { addRoutes, getRoutes, mainRouteName } from "@/permission";
 
 interface State {
   accessToken: string;
@@ -11,7 +12,6 @@ export const useUserStore = defineStore("user", {
     accessToken: "",
     userInfo: {
       userId: "",
-      userName: "",
     },
     menuPerms: [],
   }),
@@ -19,8 +19,13 @@ export const useUserStore = defineStore("user", {
     isLogin: (state) => state.accessToken,
   },
   actions: {
-    authLogin() {
-      this.accessToken = "1";
+    async authLogin(res: LoginData): Promise<void> {
+      this.accessToken = res.accessToken;
+      this.userInfo = res.userInfo;
+      this.menuPerms = res.menus;
+
+      await addRoutes(getRoutes(this.menuPerms), mainRouteName);
+      return Promise.resolve();
     },
     logout() {
       this.accessToken = "";

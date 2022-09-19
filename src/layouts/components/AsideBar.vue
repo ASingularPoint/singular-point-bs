@@ -22,7 +22,7 @@
       @open="handleOpen"
       @close="handleClose"
     >
-      <div v-for="(item, index) in menuList" :key="index">
+      <template v-for="(item, index) in menuList" :key="index">
         <el-sub-menu v-if="item.children.length !== 0" :index="item.path">
           <template #title>
             <el-icon>
@@ -46,24 +46,21 @@
           </el-icon>
           <template #title>{{ item.title }}</template>
         </el-menu-item>
-      </div>
+      </template>
     </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-// import {
-//   Menu as IconMenu,
-//   Location,
-//   Fold,
-//   Expand,
-// } from "@element-plus/icons-vue";
 import { getRouterList } from "@/permission";
+import { useUserStore } from "@/store/modules/user";
+
+const store = useUserStore();
 
 const menuList = ref<MenuRecord[]>([]);
 
-menuList.value = [...getRouterList()];
+menuList.value = [...getRouterList(store.menuPerms)];
 
 const isCollapse = ref(false);
 
@@ -118,7 +115,8 @@ const handleClose = (key: string, keyPath: string[]) => {
 
   .el-menu-item-group {
     ::v-deep .el-menu-item-group__title {
-      padding: 0;
+      // padding: 0;
+      display: none;
     }
   }
   .el-menu-item:hover {

@@ -11,17 +11,26 @@ interface MenuRecord {
   path: string;
   title: string;
   redirect: string;
-  children: MenuRecord[];
+  children?: MenuRecord[];
   orderIndex: number;
 }
 
 // user
 interface UserData {
   userId: string;
-  userName: string;
 }
 
-// loginparams
+// ******************** auth ************************
+
+interface LoginData {
+  accessToken: string;
+  userInfo: UserData | null;
+  /**
+   * 登录菜单
+   */
+  menus: MenuRecord[];
+}
+
 interface UserLoginParams {
   accountName: string;
   password: string;
