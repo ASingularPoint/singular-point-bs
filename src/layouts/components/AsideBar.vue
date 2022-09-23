@@ -14,16 +14,14 @@
       </el-icon>
     </div>
     <el-menu
-      default-active="/"
+      :default-active="Route.fullPath"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
       router
       text-color="rgb(48, 49, 51)"
-      @open="handleOpen"
-      @close="handleClose"
     >
       <template v-for="(item, index) in menuList" :key="index">
-        <el-sub-menu v-if="item.children.length !== 0" :index="item.path">
+        <el-sub-menu v-if="item.children.length > 0" :index="item.fullPath">
           <template #title>
             <el-icon>
               <component :is="item.icon"></component>
@@ -34,13 +32,13 @@
             <el-menu-item
               v-for="(children, index) in item.children"
               :key="index"
-              :index="children.path"
+              :index="children.fullPath"
               >{{ children.title }}</el-menu-item
             >
           </el-menu-item-group>
         </el-sub-menu>
 
-        <el-menu-item v-else :index="item.path">
+        <el-menu-item v-else :index="item.fullPath">
           <el-icon>
             <component :is="item.icon"></component>
           </el-icon>
@@ -55,6 +53,9 @@
 import { ref } from "vue";
 import { getRouterList } from "@/permission";
 import { useUserStore } from "@/store/modules/user";
+import { useRoute } from "vue-router";
+
+const Route = useRoute();
 
 const store = useUserStore();
 
@@ -63,13 +64,6 @@ const menuList = ref<MenuRecord[]>([]);
 menuList.value = [...getRouterList(store.menuPerms)];
 
 const isCollapse = ref(false);
-
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
-};
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
-};
 </script>
 
 <style lang="scss" scoped>

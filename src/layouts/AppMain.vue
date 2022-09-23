@@ -9,7 +9,9 @@
           <NavBar></NavBar>
         </el-header>
         <el-main>
-          <router-view></router-view>
+          <KeepAlive :include="tagStore.cacheView">
+            <router-view></router-view>
+          </KeepAlive>
         </el-main>
       </el-container>
     </el-container>
@@ -19,6 +21,9 @@
 <script setup lang="ts">
 import AsideBar from "./components/AsideBar.vue";
 import NavBar from "./components/NavBar.vue";
+import { useTagStore } from "@/store/modules/tag";
+
+const tagStore = useTagStore();
 </script>
 
 <style lang="scss" scoped>

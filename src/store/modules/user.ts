@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { addRoutes, getRoutes, mainRouteName } from "@/permission";
+import router from "@/router/index";
 
 interface State {
   accessToken: string;
@@ -12,6 +13,7 @@ export const useUserStore = defineStore("user", {
     accessToken: "",
     userInfo: {
       userId: "",
+      userName: "",
     },
     menuPerms: [],
   }),
@@ -29,6 +31,13 @@ export const useUserStore = defineStore("user", {
     },
     logout() {
       this.accessToken = "";
+      this.userInfo = {
+        userId: "",
+        userName: "",
+      };
+      this.menuPerms = [];
+
+      router.replace("/login");
     },
   },
   persist: true,

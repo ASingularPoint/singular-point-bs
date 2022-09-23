@@ -18,6 +18,14 @@ interface MenuRecord {
 // user
 interface UserData {
   userId: string;
+  userName: string;
+}
+
+// tab
+interface ToolBarData {
+  name: string;
+  detail: string;
+  componentName: string;
 }
 
 // ******************** auth ************************

@@ -4,6 +4,7 @@ import "nprogress/nprogress.css";
 import getPageTitle from "@/utils/getPageTitle";
 import constantsRoutes from "@/router/constantsRoutes";
 import { useUserStore } from "@/store/modules/user";
+import { useTagStore } from "@/store/modules/tag";
 
 NProgress.configure({
   showSpinner: false,
@@ -15,6 +16,7 @@ export const mainRouteName = "AppMain";
 
 export function routerBeforeEach() {
   const store = useUserStore();
+  const tagStore = useTagStore();
 
   router.beforeEach((to, from, next) => {
     NProgress.start();
@@ -50,11 +52,19 @@ export function routerBeforeEach() {
       NProgress.done();
     }
   });
-}
 
-router.afterEach(() => {
-  NProgress.done();
-});
+  router.afterEach((to, from, failure) => {
+    if (to.fullPath === "/login") return NProgress.done();
+    const data: ToolBarData = {
+      name: to.meta.title as string,
+      detail: to.fullPath as string,
+      componentName: to.name as string,
+    };
+    tagStore.setToolData(data);
+    tagStore.setCacheView(data);
+    NProgress.done();
+  });
+}
 
 export function getRoutes(menu: MenuRecord[]): MenuRecord[] {
   return constantsRoutes.concat(menu);
@@ -82,7 +92,6 @@ export function addRoutes(_routes: MenuRecord[], _parentName = "") {
             icon: item.icon,
             parentName,
           },
-          children: [],
         };
         parentName
           ? router.addRoute(parentName, route)
