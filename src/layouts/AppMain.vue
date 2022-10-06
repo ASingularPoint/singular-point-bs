@@ -9,7 +9,6 @@
           <NavBar></NavBar>
         </el-header>
         <el-main>
-          {{ tagStore.cacheView }}
           <router-view v-slot="{ Component }">
             <KeepAlive :include="tagStore.cacheView">
               <component :is="Component" />

@@ -37,6 +37,7 @@ instance.interceptors.response.use(
       return res.data;
     }
     ElMessage({
+      showClose: true,
       message: res.message || "Error",
       type: "error",
       duration: 5 * 1000,
@@ -47,6 +48,7 @@ instance.interceptors.response.use(
     const resStatus = error.request.status;
     if (resStatus === 401) {
       ElMessage({
+        showClose: true,
         message: "登录超时",
         type: "error",
         duration: 5 * 1000,
