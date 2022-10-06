@@ -55,6 +55,14 @@ export function routerBeforeEach() {
 
   router.afterEach((to, from, failure) => {
     if (to.fullPath === "/login") return NProgress.done();
+    if (to.meta.parentName !== mainRouteName) {
+      const data: ToolBarData = {
+        name: to.meta.parentName as string,
+        detail: to.meta.parentName as string,
+        componentName: to.meta.parentName as string,
+      };
+      tagStore.setCacheView(data);
+    }
     const data: ToolBarData = {
       name: to.meta.title as string,
       detail: to.fullPath as string,

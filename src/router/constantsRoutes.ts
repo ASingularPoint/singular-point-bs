@@ -6,7 +6,7 @@ const constantsRoutes: MenuRecord[] = [
     icon: "HelpFilled",
     id: 0,
     keepAlive: true,
-    name: "Dashboard",
+    name: "DashboardIndex",
     parent: 0,
     path: "dashboard",
     title: "仪表盘",

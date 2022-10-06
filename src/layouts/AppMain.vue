@@ -9,9 +9,12 @@
           <NavBar></NavBar>
         </el-header>
         <el-main>
-          <KeepAlive :include="tagStore.cacheView">
-            <router-view></router-view>
-          </KeepAlive>
+          {{ tagStore.cacheView }}
+          <router-view v-slot="{ Component }">
+            <KeepAlive :include="tagStore.cacheView">
+              <component :is="Component" />
+            </KeepAlive>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
