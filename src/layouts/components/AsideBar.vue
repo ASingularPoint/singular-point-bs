@@ -33,8 +33,13 @@
               v-for="(children, index) in item.children"
               :key="index"
               :index="children.fullPath"
-              >{{ children.title }}</el-menu-item
             >
+              <el-icon>
+                <component :is="children.icon"></component>
+              </el-icon>
+              <template #title>{{ children.title }}</template>
+              <!-- {{ children.title }} -->
+            </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
 
