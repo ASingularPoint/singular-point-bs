@@ -10,8 +10,13 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "element-plus/theme-chalk/el-message.css";
 // auth
 import { routerBeforeEach } from "./permission";
+// 公共函数
+import * as func from "@/utils/func";
 
 const app = createApp(App);
+
+// 公共函数挂载全局函数
+app.config.globalProperties.$func = func;
 
 // element icon
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

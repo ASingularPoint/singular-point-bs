@@ -43,3 +43,29 @@ interface UserLoginParams {
   accountName: string;
   password: string;
 }
+
+// ******* aTable ******
+interface Itabledata {
+  [x: string]: any;
+}
+
+interface HeaderCellStyle {
+  [x: string]: any;
+}
+
+interface Columns {
+  type?: string;
+  prop?: string;
+  label?: string;
+  width?: string;
+  slot?: string;
+}
+
+// ******* UserIndex ******
+interface UserListData {
+  id: number;
+  accountName: string;
+  role: string;
+  create_time: string;
+  // children?: User[];
+}

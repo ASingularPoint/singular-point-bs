@@ -35,5 +35,9 @@ const tagStore = useTagStore();
   .el-header {
     padding: 0;
   }
+  .el-main {
+    padding-left: 0;
+    padding-right: 15px;
+  }
 }
 </style>

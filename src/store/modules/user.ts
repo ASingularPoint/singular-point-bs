@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { addRoutes, getRoutes, mainRouteName } from "@/permission";
 import router from "@/router/index";
+import { useTagStore } from "./tag";
 
 interface State {
   accessToken: string;
@@ -36,7 +37,8 @@ export const useUserStore = defineStore("user", {
         userName: "",
       };
       this.menuPerms = [];
-
+      // 初始化tag
+      useTagStore().$reset();
       router.replace("/login");
     },
   },

@@ -8,6 +8,8 @@ export {};
 declare module "@vue/runtime-core" {
   export interface GlobalComponents {
     ANavTag: typeof import("./src/components/ANavTag/aNavTag.vue")["default"];
+    ATable: typeof import("./src/components/ATable/aTable.vue")["default"];
+    ATableHeader: typeof import("./src/components/ATableHeader/aTableHeader.vue")["default"];
     AToolPopover: typeof import("./src/components/AToolPopover/aToolPopover.vue")["default"];
     ElAside: typeof import("element-plus/es")["ElAside"];
     ElAvatar: typeof import("element-plus/es")["ElAvatar"];
@@ -25,7 +27,10 @@ declare module "@vue/runtime-core" {
     ElMenuItemGroup: typeof import("element-plus/es")["ElMenuItemGroup"];
     ElPopover: typeof import("element-plus/es")["ElPopover"];
     ElSubMenu: typeof import("element-plus/es")["ElSubMenu"];
+    ElTable: typeof import("element-plus/es")["ElTable"];
+    ElTableColumn: typeof import("element-plus/es")["ElTableColumn"];
     ElTag: typeof import("element-plus/es")["ElTag"];
+    ElTooltip: typeof import("element-plus/es")["ElTooltip"];
     RouterLink: typeof import("vue-router")["RouterLink"];
     RouterView: typeof import("vue-router")["RouterView"];
   }
