@@ -3,7 +3,7 @@
     <el-table
       ref="multipleTableRef"
       :data="props.tableData"
-      style="width: 100%; margin-bottom: 20px"
+      style="width: 100%"
       :header-cell-style="props.headerCellStyle"
       row-key="id"
       border

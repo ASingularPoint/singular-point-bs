@@ -5,7 +5,7 @@
     </div>
     <div class="nav-bar__tool">
       <div class="tool-item" @click="fullScreen">
-        <el-icon size="20"><FullScreen /></el-icon>
+        <mdicon name="CropFree" size="20"></mdicon>
       </div>
       <AToolPopover>
         <div class="tool-item">
@@ -67,7 +67,7 @@ const fullScreen = () => {
       align-items: center;
 
       &:hover {
-        .el-icon {
+        .mdi {
           animation: twinkle-animation 0.3s ease-in-out;
         }
         background-color: #f5f5f5;

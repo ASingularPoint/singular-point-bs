@@ -9,11 +9,13 @@
           <NavBar></NavBar>
         </el-header>
         <el-main>
-          <router-view v-slot="{ Component }">
-            <KeepAlive :include="tagStore.cacheView">
-              <component :is="Component" />
-            </KeepAlive>
-          </router-view>
+          <ElConfigProvider :locale="zhCn">
+            <router-view v-slot="{ Component }">
+              <KeepAlive :include="tagStore.cacheView">
+                <component :is="Component" />
+              </KeepAlive>
+            </router-view>
+          </ElConfigProvider>
         </el-main>
       </el-container>
     </el-container>
@@ -21,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import { ElConfigProvider } from "element-plus";
+import zhCn from "element-plus/lib/locale/lang/zh-cn";
 import AsideBar from "./components/AsideBar.vue";
 import NavBar from "./components/NavBar.vue";
 import { useTagStore } from "@/store/modules/tag";

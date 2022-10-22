@@ -19,8 +19,11 @@
               type="text"
               size="large"
               autocomplete="off"
-              prefix-icon="User"
-            />
+            >
+              <template #prefix>
+                <mdicon name="account" size="20"></mdicon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item label="" prop="password">
             <el-input
@@ -28,8 +31,11 @@
               type="password"
               size="large"
               autocomplete="off"
-              prefix-icon="Unlock"
-            />
+            >
+              <template #prefix>
+                <mdicon name="lock-open" size="20"></mdicon>
+              </template>
+            </el-input>
           </el-form-item>
           <el-form-item>
             <el-button

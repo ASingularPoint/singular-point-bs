@@ -3,7 +3,7 @@ const constantsRoutes: MenuRecord[] = [
     component: "views/dashboard/DashboardIndex.vue",
     createTime: "1662879409990",
     fullPath: "/dashboard",
-    icon: "HelpFilled",
+    icon: "chart-donut",
     id: 0,
     keepAlive: true,
     name: "DashboardIndex",

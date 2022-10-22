@@ -12,6 +12,8 @@ import "element-plus/theme-chalk/el-message.css";
 import { routerBeforeEach } from "./permission";
 // 公共函数
 import * as func from "@/utils/func";
+//  @mdi/font mdi-vue/v3 @mdi/js
+import MDIcon, { config as MDIconConfig } from "@/md-icon/index";
 
 const app = createApp(App);
 
@@ -22,6 +24,8 @@ app.config.globalProperties.$func = func;
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
+//  @mdi/font mdi-vue/v3 @mdi/js
+app.use(MDIcon, { icons: MDIconConfig });
 
 app.use(store).use(router).mount("#app");
 // auth

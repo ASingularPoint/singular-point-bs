@@ -7,21 +7,23 @@
       :tableData="tableData"
     >
       <template v-slot:operation>
-        <el-button type="primary" size="small" circle>
+        <el-button type="primary" size="small">
           <el-icon :size="16"><Edit /></el-icon>
         </el-button>
 
-        <el-button type="danger" size="small" circle>
+        <el-button type="danger" size="small">
           <el-icon :size="16"><Delete /></el-icon>
         </el-button>
       </template>
     </ATable>
+    <APagination></APagination>
   </div>
 </template>
 
 <script setup lang="ts">
 import TableHeader from "@/components/ATableHeader/aTableHeader.vue";
 import ATable from "@/components/ATable/aTable.vue";
+import APagination from "@/components/APagination/aPagination.vue";
 
 // 表头样式
 const headerCellStyle: HeaderCellStyle = {

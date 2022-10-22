@@ -3,15 +3,20 @@
     <div class="layout-logo">
       <div class="logo" v-show="!isCollapse">ASP</div>
       <div v-show="!isCollapse" style="flex: 1"></div>
-      <el-icon
-        class="is-collapse-icon"
-        :size="18"
-        color="#409eff"
-        @click="isCollapse = !isCollapse"
-      >
-        <Fold v-show="!isCollapse" />
-        <Expand v-show="isCollapse" />
-      </el-icon>
+      <div class="is-collapse-icon" @click="isCollapse = !isCollapse">
+        <mdicon
+          name="format-indent-decrease"
+          size="20"
+          style="color: #409eff"
+          v-show="!isCollapse"
+        />
+        <mdicon
+          name="format-indent-increase"
+          size="20"
+          style="color: #409eff"
+          v-show="isCollapse"
+        />
+      </div>
     </div>
     <el-menu
       :default-active="Route.fullPath"
@@ -23,9 +28,7 @@
       <template v-for="(item, index) in menuList" :key="index">
         <el-sub-menu v-if="item.children.length > 0" :index="item.fullPath">
           <template #title>
-            <el-icon>
-              <component :is="item.icon"></component>
-            </el-icon>
+            <mdicon :name="item.icon" size="18" />
             <span>{{ item.title }}</span>
           </template>
           <el-menu-item-group>
@@ -34,9 +37,7 @@
               :key="index"
               :index="children.fullPath"
             >
-              <el-icon>
-                <component :is="children.icon"></component>
-              </el-icon>
+              <mdicon :name="children.icon" size="18" />
               <template #title>{{ children.title }}</template>
               <!-- {{ children.title }} -->
             </el-menu-item>
@@ -44,9 +45,7 @@
         </el-sub-menu>
 
         <el-menu-item v-else :index="item.fullPath">
-          <el-icon>
-            <component :is="item.icon"></component>
-          </el-icon>
+          <mdicon :name="item.icon" size="18" />
           <template #title>{{ item.title }}</template>
         </el-menu-item>
       </template>
@@ -101,6 +100,9 @@ const isCollapse = ref(false);
 
 .el-menu {
   border: none;
+  .mdi {
+    margin-right: 10px;
+  }
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 260px;
     height: 100vh;
