@@ -8,11 +8,11 @@
     >
       <template v-slot:operation>
         <el-button type="primary" size="small">
-          <el-icon :size="16"><Edit /></el-icon>
+          <mdicon name="pencil" size="18" />
         </el-button>
 
         <el-button type="danger" size="small">
-          <el-icon :size="16"><Delete /></el-icon>
+          <mdicon name="trash-can" size="18" />
         </el-button>
       </template>
     </ATable>
