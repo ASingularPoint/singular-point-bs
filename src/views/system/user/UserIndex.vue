@@ -139,10 +139,6 @@ onMounted(() => {
 // 获取数据
 const getData = () => {
   loading.value = true;
-  let number = 0;
-  let interval = setInterval(() => {
-    number++;
-  }, 1000); //1000毫秒加一次。
   GetUserList({
     ...searchForm,
     currentPage: pageInfo.currentPage,
@@ -150,18 +146,9 @@ const getData = () => {
   })
     .then((res) => new TimeFormat(["createTime", "updateTime"]).pipe(res))
     .then((res) => {
-      if (number >= 2) {
-        tableData.value = res.records;
-        pageInfo.total = res.totalCount;
-        loading.value = false;
-      } else {
-        setTimeout(() => {
-          tableData.value = res.records;
-          pageInfo.total = res.totalCount;
-          loading.value = false;
-        }, 1000);
-      }
-      clearInterval(interval);
+      tableData.value = res.records;
+      pageInfo.total = res.totalCount;
+      loading.value = false;
     });
 };
 
