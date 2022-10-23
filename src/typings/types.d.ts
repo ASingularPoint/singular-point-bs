@@ -1,3 +1,29 @@
+interface CommonTable<Record> {
+  /**
+   * 记录
+   */
+  records: Record[];
+  /**
+   * 总条数
+   */
+  totalCount: number;
+}
+
+interface CommonPaginationParams {
+  /**
+   * 当前页
+   */
+  currentPage: number;
+  /**
+   * 每页条数
+   */
+  pageSize: number;
+  /**
+   * 总条数
+   */
+  totalCount?: number;
+}
+
 // router
 interface MenuRecord {
   component: string;
@@ -62,11 +88,39 @@ interface Columns {
   slot?: string;
 }
 
+// ***** pagination ******
+interface IPagination {
+  currentPage: number;
+  pageSize: number;
+  pageSizes: number[];
+  total: number;
+  small?: boolean;
+  background?: boolean;
+  disabled?: boolean;
+}
+
 // ******* UserIndex ******
-interface UserListData {
-  id: number;
+interface GetUserListRawParams {
+  search: string;
+}
+
+interface GetUserListParams
+  extends CommonPaginationParams,
+    GetUserListRawParams {}
+
+interface GetUserListData {
+  userId: number;
   accountName: string;
-  role: string;
-  create_time: string;
-  // children?: User[];
+  role: string | GetRoleListData;
+  createTime: string;
+  updateTime: string;
+}
+
+//  ********** RoleIndex *********
+
+interface GetRoleListData {
+  roleId: string;
+  name: string;
+  contextMenu: string;
+  createTime: string;
 }

@@ -14,6 +14,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.6",
     "element-plus": "^2.2.16",
     "mdi-vue": "^3.0.13",
     "nprogress": "^0.2.0",

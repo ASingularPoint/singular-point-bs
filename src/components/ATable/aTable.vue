@@ -2,6 +2,7 @@
   <div class="a-table">
     <el-table
       ref="multipleTableRef"
+      v-loading="props.loading"
       :data="props.tableData"
       style="width: 100%"
       :header-cell-style="props.headerCellStyle"
@@ -36,11 +37,13 @@ interface Props {
   columns: Columns[];
   tableData: Itabledata[];
   headerCellStyle?: HeaderCellStyle;
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   columns: () => [],
   tableData: () => [],
+  loading: false,
 });
 
 const multipleTableRef = ref<InstanceType<typeof ElTableType>>();

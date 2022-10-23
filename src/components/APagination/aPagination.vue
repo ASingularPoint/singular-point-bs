@@ -3,12 +3,12 @@
     <el-pagination
       v-model:currentPage="currentPage"
       v-model:page-size="pageSize"
-      :page-sizes="[100, 200, 300, 400]"
+      :page-sizes="pageSizes"
       :small="small"
       :disabled="disabled"
-      background
+      :background="background"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400"
+      :total="total"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
@@ -16,20 +16,37 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { toRefs } from "vue";
 
-const currentPage = ref(4);
+interface Props {
+  pageInfo: IPagination;
+}
 
-const pageSize = ref(100);
-const small = ref(false);
-const background = ref(false);
-const disabled = ref(false);
+const props = withDefaults(defineProps<Props>(), {
+  pageInfo: () => ({
+    currentPage: 1,
+    pageSize: 10,
+    pageSizes: [10, 20, 30],
+    total: 0,
+    small: false,
+    background: true,
+    disabled: false,
+  }),
+});
 
+const emit = defineEmits(["handleSizeChange", "handleCurrentChange"]);
+
+const { currentPage, pageSize, pageSizes, total, small, background, disabled } =
+  toRefs(props.pageInfo);
+
+// 每页展示数据条数的方法
 const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`);
+  emit("handleSizeChange", val);
 };
+
+// 当前页码的方法
 const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`);
+  emit("handleCurrentChange", val);
 };
 </script>
 
