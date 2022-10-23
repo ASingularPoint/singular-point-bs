@@ -201,13 +201,11 @@ const handleDelete = (event: any, row: GetUserListData) => {
 
 // 每页展示数据的条数回调
 const handleSizeChange = (val: number) => {
-  console.log(val);
   getData();
 };
 
 // 当前页码的回调
 const handleCurrentChange = (val: number) => {
-  console.log(val);
   getData();
 };
 </script>
