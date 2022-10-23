@@ -58,6 +58,7 @@ interface Columns {
   prop?: string;
   label?: string;
   width?: string;
+  align?: string;
   slot?: string;
 }
 

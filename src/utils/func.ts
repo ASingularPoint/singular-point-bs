@@ -6,7 +6,11 @@ export const elmBtnBlur = function (event: any) {
   if (event.target.nodeName === "BUTTON") {
     event.target.parentNode.blur();
   }
-  if (event.target.nodeName === "SPAN" || event.target.nodeName === "svg") {
+  if (
+    event.target.nodeName === "SPAN" ||
+    event.target.nodeName === "svg" ||
+    event.target.nodeName === "path"
+  ) {
     event.path.forEach((element: any) => {
       if (element.nodeName === "BUTTON") {
         element.blur();

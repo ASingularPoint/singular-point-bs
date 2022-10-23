@@ -18,8 +18,11 @@
         :prop="item.prop"
         :label="item.label"
         :width="item.width"
+        :align="item.align"
       >
-        <slot v-if="item.slot" :name="item.slot"> </slot>
+        <template #default="scope">
+          <slot v-if="item.slot" :name="item.slot" :row="scope.row"> </slot>
+        </template>
       </el-table-column>
     </el-table>
   </div>

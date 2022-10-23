@@ -6,12 +6,20 @@
       :columns="columns"
       :tableData="tableData"
     >
-      <template v-slot:operation>
-        <el-button type="primary" size="small">
+      <template #operation="scope">
+        <el-button
+          type="primary"
+          size="small"
+          @click="handleEdit($event, scope.row)"
+        >
           <mdicon name="pencil" size="18" />
         </el-button>
 
-        <el-button type="danger" size="small">
+        <el-button
+          type="danger"
+          size="small"
+          @click="handleDelete($event, scope.row)"
+        >
           <mdicon name="trash-can" size="18" />
         </el-button>
       </template>
@@ -21,9 +29,17 @@
 </template>
 
 <script setup lang="ts">
+import { getCurrentInstance, ComponentInternalInstance, AppContext } from "vue";
 import TableHeader from "@/components/ATableHeader/aTableHeader.vue";
 import ATable from "@/components/ATable/aTable.vue";
 import APagination from "@/components/APagination/aPagination.vue";
+
+interface IAppContext {
+  appContext: AppContext;
+}
+
+const { appContext }: IAppContext =
+  getCurrentInstance() as ComponentInternalInstance;
 
 // 表头样式
 const headerCellStyle: HeaderCellStyle = {
@@ -41,21 +57,25 @@ const columns: Columns[] = [
     prop: "accountName",
     label: "用户名",
     width: "180",
+    align: "left",
   },
   {
     prop: "role",
     label: "角色",
     width: "180",
+    align: "left",
   },
   {
     prop: "create_time",
     width: "180",
     label: "创建时间",
+    align: "left",
   },
   {
     prop: "",
     label: "操作",
     slot: "operation",
+    align: "left",
   },
 ];
 
@@ -74,6 +94,16 @@ const tableData: UserListData[] = [
     create_time: "2016-05-02",
   },
 ];
+
+const handleEdit = (event: any, row: UserListData) => {
+  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  console.log(row);
+};
+
+const handleDelete = (event: any, row: UserListData) => {
+  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  console.log(row);
+};
 </script>
 
 <style lang="scss" scoped>
