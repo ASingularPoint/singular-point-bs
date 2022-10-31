@@ -29,13 +29,14 @@
           content="删除"
           placement="top"
         >
-          <el-button
-            type="danger"
-            size="small"
-            @click="handleDelete($event, scope.row)"
+          <APopconfirm
+            style="margin-left: 12px"
+            @confirm="handleDelete(scope.row)"
           >
-            <mdicon name="trash-can" size="18" />
-          </el-button>
+            <el-button type="danger" size="small" @click="btnRestore($event)">
+              <mdicon name="trash-can" size="18" />
+            </el-button>
+          </APopconfirm>
         </el-tooltip>
       </template>
     </ATable>
@@ -59,6 +60,7 @@ import {
 import TableHeader from "@/components/ATableHeader/aTableHeader.vue";
 import ATable from "@/components/ATable/aTable.vue";
 import APagination from "@/components/APagination/aPagination.vue";
+import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 
 import { GetUserList } from "@/api/system/user";
 import { GetRoleList } from "@/api/system/role";
@@ -181,9 +183,13 @@ const handleEdit = (event: any, row: GetUserListData) => {
 };
 
 // 每条数据的删除按钮
-const handleDelete = (event: any, row: GetUserListData) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+const handleDelete = (row: GetUserListData) => {
   console.log(row);
+};
+
+// 删除按钮失焦
+const btnRestore = (event: any) => {
+  appContext.config.globalProperties.$func.elmBtnBlur(event);
 };
 
 // 每页展示数据的条数回调

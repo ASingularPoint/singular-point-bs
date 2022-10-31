@@ -9,6 +9,7 @@ declare module "@vue/runtime-core" {
   export interface GlobalComponents {
     ANavTag: typeof import("./src/components/ANavTag/aNavTag.vue")["default"];
     APagination: typeof import("./src/components/APagination/aPagination.vue")["default"];
+    APopconfirm: typeof import("./src/components/APopconfirm/aPopconfirm.vue")["default"];
     ATable: typeof import("./src/components/ATable/aTable.vue")["default"];
     ATableHeader: typeof import("./src/components/ATableHeader/aTableHeader.vue")["default"];
     AToolPopover: typeof import("./src/components/AToolPopover/aToolPopover.vue")["default"];
@@ -26,6 +27,7 @@ declare module "@vue/runtime-core" {
     ElMenuItem: typeof import("element-plus/es")["ElMenuItem"];
     ElMenuItemGroup: typeof import("element-plus/es")["ElMenuItemGroup"];
     ElPagination: typeof import("element-plus/es")["ElPagination"];
+    ElPopconfirm: typeof import("element-plus/es")["ElPopconfirm"];
     ElPopover: typeof import("element-plus/es")["ElPopover"];
     ElSubMenu: typeof import("element-plus/es")["ElSubMenu"];
     ElTable: typeof import("element-plus/es")["ElTable"];
