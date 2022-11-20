@@ -17,6 +17,10 @@ const routes: Array<RouteRecordRaw> = [
       bypassLogin: true,
     },
   },
+  {
+    path: "/:catchAll(.*)",
+    component: () => import("@/views/error/index.vue"),
+  },
 ];
 
 const router = createRouter({
