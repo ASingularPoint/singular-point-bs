@@ -1,3 +1,12 @@
+/*
+ * @Author: 柚子
+ * @Date: 2022-11-10 14:06:13
+ * @LastEditors: huangl
+ * @GitHub: https://github.com/Yuzu-io
+ * @LastEditTime: 2022-11-20 22:18:04
+ * @Description: 动态渲染虚拟 DOM
+ * @FilePath: \singular-point-bs\src\utils\DynamicRender.ts
+ */
 import { createVNode, Component, VNode, render } from "vue";
 import App from "@/main";
 
