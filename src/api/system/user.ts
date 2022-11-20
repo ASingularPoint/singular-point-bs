@@ -9,3 +9,11 @@ export function GetUserList(
     params: data,
   });
 }
+
+export function DeleteUser(data: DeleteUserRecordParams): Promise<string> {
+  return request({
+    url: "/system-user/delete",
+    method: "delete",
+    params: data,
+  });
+}

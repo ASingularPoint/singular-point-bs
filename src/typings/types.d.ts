@@ -116,6 +116,10 @@ interface GetUserListData {
   updateTime: string;
 }
 
+interface DeleteUserRecordParams {
+  userId: number;
+}
+
 //  ********** RoleIndex *********
 
 interface GetRoleListData {

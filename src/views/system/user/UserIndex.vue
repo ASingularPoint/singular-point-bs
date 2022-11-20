@@ -57,12 +57,13 @@ import {
   ref,
   onMounted,
 } from "vue";
+import { ElMessage } from "element-plus";
 import TableHeader from "@/components/ATableHeader/aTableHeader.vue";
 import ATable from "@/components/ATable/aTable.vue";
 import APagination from "@/components/APagination/aPagination.vue";
 import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 
-import { GetUserList } from "@/api/system/user";
+import { GetUserList, DeleteUser } from "@/api/system/user";
 import { GetRoleList } from "@/api/system/role";
 import { TimeFormat } from "@/utils/dataFormat";
 
@@ -184,7 +185,16 @@ const handleEdit = (event: any, row: GetUserListData) => {
 
 // 每条数据的删除按钮
 const handleDelete = (row: GetUserListData) => {
-  console.log(row);
+  DeleteUser({
+    userId: row.userId,
+  }).then((res) => {
+    getData();
+    ElMessage({
+      showClose: true,
+      message: res,
+      type: "success",
+    });
+  });
 };
 
 // 删除按钮失焦

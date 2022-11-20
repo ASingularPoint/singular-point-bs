@@ -30,3 +30,5 @@ app.use(MDIcon, { icons: MDIconConfig });
 app.use(store).use(router).mount("#app");
 // auth
 routerBeforeEach();
+
+export default app;
