@@ -32,7 +32,6 @@
         >
           <template #title>
             <mdicon :name="item.icon" size="18" />
-            <!-- <el-icon><location /></el-icon> -->
             <span>{{ item.title }}</span>
           </template>
           <el-menu-item-group>
@@ -43,7 +42,6 @@
             >
               <mdicon :name="children.icon" size="18" />
               <template #title>{{ children.title }}</template>
-              <!-- {{ children.title }} -->
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
@@ -120,7 +118,6 @@ const isCollapse = ref(false);
 
   .el-menu-item-group {
     ::v-deep .el-menu-item-group__title {
-      // padding: 0;
       display: none;
     }
   }
