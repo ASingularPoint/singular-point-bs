@@ -26,9 +26,13 @@
       text-color="rgb(48, 49, 51)"
     >
       <template v-for="(item, index) in menuList" :key="index">
-        <el-sub-menu v-if="item.children.length > 0" :index="item.fullPath">
+        <el-sub-menu
+          v-if="Array.isArray(item.children) && item.children.length > 0"
+          :index="item.fullPath"
+        >
           <template #title>
             <mdicon :name="item.icon" size="18" />
+            <!-- <el-icon><location /></el-icon> -->
             <span>{{ item.title }}</span>
           </template>
           <el-menu-item-group>
