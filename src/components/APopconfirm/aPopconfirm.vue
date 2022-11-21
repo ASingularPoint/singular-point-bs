@@ -21,12 +21,12 @@
 import { InfoFilled } from "@element-plus/icons-vue";
 
 interface Props {
-  confirmButtonText: string;
-  cancelButtonText: string;
-  icon: any;
-  iconColor: string;
-  title: string;
-  width: string;
+  confirmButtonText?: string;
+  cancelButtonText?: string;
+  icon?: any;
+  iconColor?: string;
+  title?: string;
+  width?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
