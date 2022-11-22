@@ -23,6 +23,9 @@ const instance: IAxiosInstance = axios.create({
 
 instance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
+    if (userStore.accessToken && config.headers) {
+      config.headers["Authorization"] = "Bearer " + userStore.accessToken;
+    }
     return config;
   },
   (error: AxiosError) => {
