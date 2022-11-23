@@ -6,7 +6,7 @@
       :data="props.tableData"
       style="width: 100%"
       :header-cell-style="props.headerCellStyle"
-      row-key="id"
+      :row-key="props.rowKey"
       border
       default-expand-all
       @selection-change="handleSelectionChange"
@@ -38,21 +38,24 @@ interface Props {
   tableData: Itabledata[];
   headerCellStyle?: HeaderCellStyle;
   loading?: boolean;
+  rowKey?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   columns: () => [],
   tableData: () => [],
   loading: false,
+  rowKey: "id",
 });
+
+const emit = defineEmits(["handleSelectionChange"]);
 
 const multipleTableRef = ref<InstanceType<typeof ElTableType>>();
 const multipleSelection = ref<Itabledata[]>([]);
 
 const handleSelectionChange = (val: Itabledata[]) => {
-  console.log(val);
-
   multipleSelection.value = val;
+  emit("handleSelectionChange", val);
 };
 
 const handleSelectAll = (selection: Itabledata[]) => {
