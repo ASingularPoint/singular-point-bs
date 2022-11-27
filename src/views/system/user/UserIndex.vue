@@ -1,11 +1,17 @@
 <template>
   <div class="content">
-    <TableHeader @refresh="refresh" @search="search"></TableHeader>
+    <TableHeader
+      :isSelection="isSelection"
+      @refresh="refresh"
+      @search="search"
+    ></TableHeader>
     <ATable
       :headerCellStyle="headerCellStyle"
       :columns="columns"
       :tableData="tableData"
       :loading="loading"
+      rowKey="userId"
+      @handleSelectionChange="handleSelectionChange"
     >
       <template #operation="scope">
         <el-tooltip
@@ -115,6 +121,9 @@ const columns: Columns[] = [
 
 // 表格内容
 const tableData = ref<GetUserListData[]>([]);
+const multipleSelection = ref<GetUserListData[]>([]);
+const isSelection = ref<boolean>(true);
+
 // 角色列表
 const roleListData = ref<GetRoleListData[]>([]);
 
@@ -210,6 +219,12 @@ const handleSizeChange = (val: number) => {
 // 当前页码的回调
 const handleCurrentChange = (val: number) => {
   getData();
+};
+
+// 表格多选
+const handleSelectionChange = (val: GetUserListData[]) => {
+  multipleSelection.value = val;
+  isSelection.value = val.length > 0 ? false : true;
 };
 </script>
 

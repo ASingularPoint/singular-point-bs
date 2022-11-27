@@ -114,6 +114,7 @@ interface GetUserListData {
   role: string | GetRoleListData;
   createTime: string;
   updateTime: string;
+  children?: Record[];
 }
 
 interface DeleteUserRecordParams {

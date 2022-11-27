@@ -22,19 +22,43 @@
       </el-tooltip>
 
       <!-- 编辑按钮 -->
-      <el-tooltip class="box-item" effect="dark" content="编辑" placement="top">
-        <el-button size="default" type="primary" @click="edit($event)">
+      <el-tooltip
+        class="box-item"
+        effect="dark"
+        content="编辑"
+        placement="top"
+        :disabled="props.isSelection"
+      >
+        <el-button
+          size="default"
+          type="primary"
+          :disabled="props.isSelection"
+          @click="edit($event)"
+        >
           <mdicon name="pencil" size="18" />
           <span>编辑</span>
         </el-button>
       </el-tooltip>
 
       <!-- 删除按钮 -->
-      <el-tooltip class="box-item" effect="dark" content="删除" placement="top">
-        <el-button size="default" type="danger" @click="remove($event)">
-          <mdicon name="trash-can" size="18" />
-          <span>删除</span>
-        </el-button>
+      <el-tooltip
+        class="box-item"
+        effect="dark"
+        content="删除"
+        placement="top"
+        :disabled="props.isSelection"
+      >
+        <APopconfirm style="margin-left: 12px" @confirm="handleDelete">
+          <el-button
+            size="default"
+            type="danger"
+            :disabled="props.isSelection"
+            @click="btnRestore($event)"
+          >
+            <mdicon name="trash-can" size="18" />
+            <span>删除</span>
+          </el-button>
+        </APopconfirm>
       </el-tooltip>
     </div>
 
@@ -59,22 +83,25 @@ import {
   AppContext,
   ref,
 } from "vue";
+import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 
 interface IAppContext {
   appContext: AppContext;
 }
 
 interface Props {
+  isSelection: boolean;
   placeholderValue?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  isSelection: true,
   placeholderValue: "",
 });
 
 const emit = defineEmits(["refresh", "add", "edit", "remove", "search"]);
 
-const searchValue = ref("");
+const searchValue = ref<string>("");
 
 // 获取应用vue实例上下文
 const { appContext }: IAppContext =
@@ -98,10 +125,12 @@ const edit = (event: any) => {
   emit("edit");
 };
 
-// 修改按钮
-const remove = (event: any) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+// 删除按钮
+const handleDelete = () => {
   emit("remove");
+};
+const btnRestore = (event: any) => {
+  appContext.config.globalProperties.$func.elmBtnBlur(event);
 };
 
 // 搜索按钮
