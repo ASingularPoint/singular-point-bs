@@ -117,8 +117,14 @@ interface GetUserListData {
   children?: Record[];
 }
 
+interface AddUserParams {
+  accountName: string;
+  passwd: string;
+  role: string;
+}
+
 interface DeleteUserRecordParams {
-  userId: number;
+  userId: number | number[];
 }
 
 //  ********** RoleIndex *********

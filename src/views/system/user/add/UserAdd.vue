@@ -31,12 +31,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
-import { FormRules } from "element-plus";
+import { ElMessage, FormRules } from "element-plus";
 
 import ADialogForm from "@/components/ADialogForm/aDialogForm.vue";
 
 import { TimeFormat } from "@/utils/dataFormat";
 
+import { AddUser } from "@/api/system/user";
 import { GetRoleList } from "@/api/system/role";
 
 interface Model {
@@ -44,6 +45,8 @@ interface Model {
   passwd: string;
   role: string;
 }
+
+const emit = defineEmits(["submit"]);
 
 const title = "添加用户";
 
@@ -84,8 +87,15 @@ const GetRoleListData = () => {
 };
 
 const onFormSubmitHandler = () => {
-  console.log("发请求");
-  modelValue.value = false;
+  AddUser(model).then((res) => {
+    modelValue.value = false;
+    ElMessage({
+      showClose: true,
+      message: res,
+      type: "success",
+    });
+    emit("submit");
+  });
 };
 </script>
 

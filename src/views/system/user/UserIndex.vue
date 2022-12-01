@@ -125,7 +125,7 @@ const columns: Columns[] = [
 
 // 表格内容
 const tableData = ref<GetUserListData[]>([]);
-const multipleSelection = ref<GetUserListData[]>([]);
+const multipleSelectionIds = ref<number[]>([]);
 const isSelection = ref<boolean>(true);
 
 // 角色列表
@@ -196,9 +196,18 @@ const onUserAdd = () => {
   });
 };
 
-// 删除
+// 批量删除
 const onUserRemove = () => {
-  console.log(multipleSelection.value);
+  DeleteUser({
+    userId: multipleSelectionIds.value,
+  }).then((res) => {
+    getData();
+    ElMessage({
+      showClose: true,
+      message: res,
+      type: "success",
+    });
+  });
 };
 
 // 搜索回调
@@ -244,7 +253,9 @@ const handleCurrentChange = (val: number) => {
 
 // 表格多选
 const handleSelectionChange = (val: GetUserListData[]) => {
-  multipleSelection.value = val;
+  val.forEach((item) => {
+    multipleSelectionIds.value.push(item.userId);
+  });
   isSelection.value = val.length > 0 ? false : true;
 };
 </script>
