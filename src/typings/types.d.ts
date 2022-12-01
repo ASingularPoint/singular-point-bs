@@ -124,7 +124,11 @@ interface AddUserParams {
 }
 
 interface DeleteUserRecordParams {
-  userId: number | number[];
+  userId: number;
+}
+
+interface BatchDeleteUserRecordParams {
+  userId: number[];
 }
 
 //  ********** RoleIndex *********

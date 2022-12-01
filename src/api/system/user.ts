@@ -25,3 +25,13 @@ export function DeleteUser(data: DeleteUserRecordParams): Promise<string> {
     params: data,
   });
 }
+
+export function BatchDeleteUser(
+  data: BatchDeleteUserRecordParams
+): Promise<string> {
+  return request({
+    url: "/system-user/batchDelete",
+    method: "delete",
+    data,
+  });
+}

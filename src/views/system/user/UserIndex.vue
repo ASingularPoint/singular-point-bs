@@ -73,7 +73,7 @@ import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 
 import AddUserDialog from "./add/index";
 
-import { GetUserList, DeleteUser } from "@/api/system/user";
+import { GetUserList, DeleteUser, BatchDeleteUser } from "@/api/system/user";
 import { GetRoleList } from "@/api/system/role";
 import { TimeFormat } from "@/utils/dataFormat";
 
@@ -198,7 +198,7 @@ const onUserAdd = () => {
 
 // 批量删除
 const onUserRemove = () => {
-  DeleteUser({
+  BatchDeleteUser({
     userId: multipleSelectionIds.value,
   }).then((res) => {
     getData();
@@ -254,7 +254,9 @@ const handleCurrentChange = (val: number) => {
 // 表格多选
 const handleSelectionChange = (val: GetUserListData[]) => {
   val.forEach((item) => {
-    multipleSelectionIds.value.push(item.userId);
+    if (!multipleSelectionIds.value.includes(item.userId)) {
+      multipleSelectionIds.value.push(item.userId);
+    }
   });
   isSelection.value = val.length > 0 ? false : true;
 };
