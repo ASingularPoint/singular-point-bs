@@ -10,6 +10,14 @@ export function GetUserList(
   });
 }
 
+export function AddUser(data: AddUserParams): Promise<string> {
+  return request({
+    url: "/system-user/add",
+    method: "post",
+    data,
+  });
+}
+
 export function DeleteUser(data: DeleteUserRecordParams): Promise<string> {
   return request({
     url: "/system-user/delete",
