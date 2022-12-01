@@ -7,6 +7,7 @@ export {};
 
 declare module "@vue/runtime-core" {
   export interface GlobalComponents {
+    ADialogForm: typeof import("./src/components/ADialogForm/aDialogForm.vue")["default"];
     ANavTag: typeof import("./src/components/ANavTag/aNavTag.vue")["default"];
     APagination: typeof import("./src/components/APagination/aPagination.vue")["default"];
     APopconfirm: typeof import("./src/components/APopconfirm/aPopconfirm.vue")["default"];
@@ -18,6 +19,7 @@ declare module "@vue/runtime-core" {
     ElButton: typeof import("element-plus/es")["ElButton"];
     ElCard: typeof import("element-plus/es")["ElCard"];
     ElContainer: typeof import("element-plus/es")["ElContainer"];
+    ElDialog: typeof import("element-plus/es")["ElDialog"];
     ElForm: typeof import("element-plus/es")["ElForm"];
     ElFormItem: typeof import("element-plus/es")["ElFormItem"];
     ElHeader: typeof import("element-plus/es")["ElHeader"];
@@ -26,9 +28,11 @@ declare module "@vue/runtime-core" {
     ElMenu: typeof import("element-plus/es")["ElMenu"];
     ElMenuItem: typeof import("element-plus/es")["ElMenuItem"];
     ElMenuItemGroup: typeof import("element-plus/es")["ElMenuItemGroup"];
+    ElOption: typeof import("element-plus/es")["ElOption"];
     ElPagination: typeof import("element-plus/es")["ElPagination"];
     ElPopconfirm: typeof import("element-plus/es")["ElPopconfirm"];
     ElPopover: typeof import("element-plus/es")["ElPopover"];
+    ElSelect: typeof import("element-plus/es")["ElSelect"];
     ElSubMenu: typeof import("element-plus/es")["ElSubMenu"];
     ElTable: typeof import("element-plus/es")["ElTable"];
     ElTableColumn: typeof import("element-plus/es")["ElTableColumn"];

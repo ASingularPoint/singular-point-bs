@@ -2,6 +2,8 @@
   <div class="content">
     <TableHeader
       :isSelection="isSelection"
+      @add="onUserAdd"
+      @remove="onUserRemove"
       @refresh="refresh"
       @search="search"
     ></TableHeader>
@@ -68,6 +70,8 @@ import TableHeader from "@/components/ATableHeader/aTableHeader.vue";
 import ATable from "@/components/ATable/aTable.vue";
 import APagination from "@/components/APagination/aPagination.vue";
 import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
+
+import AddUserDialog from "./add/index";
 
 import { GetUserList, DeleteUser } from "@/api/system/user";
 import { GetRoleList } from "@/api/system/role";
@@ -178,6 +182,23 @@ const refresh = () => {
   searchForm.search = "";
   tableData.value = [];
   getData();
+};
+
+// 添加
+const onUserAdd = () => {
+  AddUserDialog({
+    props: {
+      onSubmit: () => {
+        getData();
+        GetRoleListData();
+      },
+    },
+  });
+};
+
+// 删除
+const onUserRemove = () => {
+  console.log(multipleSelection.value);
 };
 
 // 搜索回调
