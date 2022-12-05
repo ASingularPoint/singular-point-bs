@@ -19,6 +19,8 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off",
     //关闭组件命名规则
     "vue/multi-word-component-names": "off",
+    //检测未使用的变量，函数和函数的参数
+    "@typescript-eslint/no-unused-vars": "off",
   },
   overrides: [
     {
