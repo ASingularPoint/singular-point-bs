@@ -55,7 +55,7 @@ const props = defineProps<Props>();
 
 const emit = defineEmits(["submit"]);
 
-const title = "添加用户";
+const title = "编辑用户";
 
 const modelValue = ref<boolean>(true);
 
