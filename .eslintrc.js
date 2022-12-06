@@ -21,6 +21,8 @@ module.exports = {
     "vue/multi-word-component-names": "off",
     //检测未使用的变量，函数和函数的参数
     "@typescript-eslint/no-unused-vars": "off",
+    //
+    "@typescript-eslint/no-empty-interface": "off",
   },
   overrides: [
     {
