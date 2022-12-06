@@ -10,3 +10,24 @@
   overflow: visible !important;
   visibility: visible !important;
 }
+
+/**
+* style
+*/
+// 大屏幕       桌面(pc)
+$pc-big-screen-view-min-width: 1200px;
+// 中等屏幕      桌面(pc)
+$pc-medium-screen-view-min-width: 992px;
+$pc-medium-screen-view-max-width: 1200px;
+// 小屏幕       平板(flat)
+$flat-small-screen-view-min-width: 768px;
+$flat-small-screen-view-max-width: 992px;
+// 超小屏幕     手机(pc)
+$phone-ultra-small-screen-view-max-width: 768px;
+
+// 适应
+// @media screen and (max-width: $pc-big-screen-view-min-width) {
+//   #app,.common-layout {
+//     min-width: $pc-big-screen-view-min-width;
+//   }
+// }

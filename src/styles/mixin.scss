@@ -1,8 +1,6 @@
 $div-base-box-shadow:0px 0px 12px rgba(0, 0, 0, 0.12);
 $div-base-border-radius:5px;
 
-$view-min-width: 780px;
-
 @mixin divInitialization($bs:$div-base-box-shadow,$br:$div-base-border-radius) {
   box-shadow: $bs;
   border-radius: $br;
