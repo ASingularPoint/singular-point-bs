@@ -72,6 +72,7 @@ import APagination from "@/components/APagination/aPagination.vue";
 import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 
 import AddUserDialog from "./add/index";
+import EditUserDialog from "./edit/index";
 
 import { GetUserList, DeleteUser, BatchDeleteUser } from "@/api/system/user";
 import { GetRoleList } from "@/api/system/role";
@@ -149,7 +150,7 @@ const pageInfo: IPagination = reactive({
 
 onMounted(() => {
   getData();
-  GetRoleListData();
+  getRoleListData();
 });
 
 // 获取数据
@@ -169,7 +170,7 @@ const getData = () => {
 };
 
 // 获取角色列表
-const GetRoleListData = () => {
+const getRoleListData = () => {
   GetRoleList()
     .then((res) => new TimeFormat("createTime").pipe(res))
     .then((res) => {
@@ -190,7 +191,20 @@ const onUserAdd = () => {
     props: {
       onSubmit: () => {
         getData();
-        GetRoleListData();
+        getRoleListData();
+      },
+    },
+  });
+};
+
+// 编辑
+const onUserEdit = (val: number) => {
+  EditUserDialog({
+    props: {
+      userId: val,
+      onSubmit: () => {
+        getData();
+        getRoleListData();
       },
     },
   });
@@ -219,7 +233,7 @@ const search = (val: string) => {
 // 每条数据的修改按钮
 const handleEdit = (event: any, row: GetUserListData) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
-  console.log(row);
+  onUserEdit(row.userId);
 };
 
 // 每条数据的删除按钮
@@ -265,6 +279,5 @@ const handleSelectionChange = (val: GetUserListData[]) => {
 <style lang="scss" scoped>
 .content {
   background-color: #fff;
-  min-width: $view-min-width;
 }
 </style>

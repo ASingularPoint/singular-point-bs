@@ -45,7 +45,6 @@ const fullScreen = () => {
 
 <style lang="scss" scoped>
 .nav-bar {
-  min-width: $view-min-width;
   height: 50px;
   margin: 16px 16px 16px 0;
   display: flex;
