@@ -32,6 +32,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
 import { ElMessage, FormRules } from "element-plus";
+import md5 from "crypto-js/md5";
 
 import ADialogForm from "@/components/ADialogForm/aDialogForm.vue";
 
@@ -40,11 +41,7 @@ import { TimeFormat } from "@/utils/dataFormat";
 import { AddUser } from "@/api/system/user";
 import { GetRoleList } from "@/api/system/role";
 
-interface Model {
-  accountName: string;
-  passwd: string;
-  role: string;
-}
+interface Model extends AddUserParams {}
 
 const emit = defineEmits(["submit"]);
 
@@ -74,11 +71,11 @@ const rules = reactive<FormRules>({
 const roleListData = ref<GetRoleListData[]>([]);
 
 onMounted(() => {
-  GetRoleListData();
+  getRoleListData();
 });
 
 // 获取角色列表
-const GetRoleListData = () => {
+const getRoleListData = () => {
   GetRoleList()
     .then((res) => new TimeFormat("createTime").pipe(res))
     .then((res) => {
@@ -87,7 +84,11 @@ const GetRoleListData = () => {
 };
 
 const onFormSubmitHandler = () => {
-  AddUser(model).then((res) => {
+  AddUser({
+    accountName: model.accountName,
+    passwd: md5(model.passwd).toString().toUpperCase(),
+    role: model.role,
+  }).then((res) => {
     modelValue.value = false;
     ElMessage({
       showClose: true,
