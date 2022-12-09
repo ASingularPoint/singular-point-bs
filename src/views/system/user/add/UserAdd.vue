@@ -1,5 +1,6 @@
 <template>
   <ADialogForm
+    class="a-dialog-form"
     :title="title"
     v-model:modelValue="modelValue"
     :model="model"
@@ -100,4 +101,12 @@ const onFormSubmitHandler = () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.a-dialog-form {
+  .el-select {
+    ::v-deep .el-input__validateIcon {
+      display: none !important;
+    }
+  }
+}
+</style>
