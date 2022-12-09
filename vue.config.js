@@ -6,7 +6,11 @@ const Components = require("unplugin-vue-components/webpack");
 const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
 
 module.exports = defineConfig({
-  assetsPublicPath: "./",
+  publicPath: "./",
+  outputDir: "dist",
+  assetsDir: "static",
+  lintOnSave: true, // 是否开启eslint保存检测
+  productionSourceMap: false, // 是否在构建生产包时生成sourcdeMap
   transpileDependencies: true,
   css: {
     loaderOptions: {
