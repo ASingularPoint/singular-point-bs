@@ -6,6 +6,7 @@
     v-model:modelValue="modelValue"
     :model="model"
     :rules="rules"
+    :loading="loading"
     @submit="onFormSubmitHandler"
   >
     <template #form>
@@ -66,6 +67,8 @@ const currentIndex = ref<number>(0);
 
 const modelValue = ref<boolean>(true);
 
+const loading = ref<boolean>(false);
+
 const model = reactive<Model>({
   userId: null,
   accountName: "",
@@ -104,10 +107,12 @@ onMounted(() => {
 
 // 获取用户信息
 const getData = () => {
+  loading.value = true;
   getUserQuery({ userId: props.userIds[currentIndex.value] }).then((res) => {
     model.userId = res.userId;
     model.accountName = res.accountName;
     model.role = Number(res.role);
+    loading.value = false;
   });
 };
 
@@ -131,6 +136,10 @@ const onFormSubmitHandler = () => {
       modelValue.value = false;
     } else {
       currentIndex.value++;
+      model.userId = null;
+      model.accountName = "";
+      model.passwd = "";
+      model.role = "";
       getData();
       getRoleListData();
     }
