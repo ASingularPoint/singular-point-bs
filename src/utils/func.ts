@@ -2,8 +2,8 @@
 
 // 解决element plus按钮点击后不失焦
 export const elmBtnBlur = function (event: Event) {
-  const target = event.target as HTMLInputElement;
-  const parentNode = target.parentNode as HTMLInputElement;
+  const target = event.target as HTMLElement;
+  const parentNode = target.parentNode as HTMLElement;
   target.blur();
   if (target.nodeName === "BUTTON") {
     parentNode.blur();
@@ -14,7 +14,7 @@ export const elmBtnBlur = function (event: Event) {
     target.nodeName === "path"
   ) {
     event.composedPath().forEach((element: EventTarget) => {
-      if (element instanceof HTMLInputElement) {
+      if (element instanceof HTMLElement) {
         if (element.nodeName === "BUTTON") {
           element.blur();
         }
