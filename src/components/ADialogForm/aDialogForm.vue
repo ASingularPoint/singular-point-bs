@@ -11,6 +11,7 @@
       :rules="props.rules"
       :label-width="formOptions.labelWidth"
       :status-icon="formOptions.statusIcon"
+      v-loading="loading"
     >
       <slot name="form"></slot>
     </el-form>
@@ -51,6 +52,7 @@ interface Props {
   model: object;
   formOptions?: AcceptFormProps;
   modelValue?: boolean;
+  loading?: boolean;
 }
 
 interface IAppContext {
@@ -67,6 +69,7 @@ const props = withDefaults(defineProps<Props>(), {
   submitText: "保存",
   width: "600px",
   modelValue: false,
+  loading: false,
   formOptions: () => ({
     labelWidth: "120px",
     statusIcon: true,
