@@ -19,7 +19,7 @@
         <el-button @click="privatemodelValue = false">
           {{ props.cancelText }}
         </el-button>
-        <el-button type="primary" @click="onDialogSubmit(ruleFormRef)">
+        <el-button type="primary" @click="onDialogSubmit($event, ruleFormRef)">
           {{ props.submitText }}
         </el-button>
       </span>
@@ -28,7 +28,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import {
+  computed,
+  ref,
+  AppContext,
+  getCurrentInstance,
+  ComponentInternalInstance,
+} from "vue";
 import { FormRules, FormInstance } from "element-plus";
 
 interface AcceptFormProps {
@@ -46,6 +52,14 @@ interface Props {
   formOptions?: AcceptFormProps;
   modelValue?: boolean;
 }
+
+interface IAppContext {
+  appContext: AppContext;
+}
+
+// 获取全局上下文
+const { appContext }: IAppContext =
+  getCurrentInstance() as ComponentInternalInstance;
 
 const props = withDefaults(defineProps<Props>(), {
   title: "Dialog Title",
@@ -84,7 +98,11 @@ const privatemodelValue = computed({
   },
 });
 
-const onDialogSubmit = async (formEl: FormInstance | undefined) => {
+const onDialogSubmit = async (
+  event: Event,
+  formEl: FormInstance | undefined
+) => {
+  appContext.config.globalProperties.$func.elmBtnBlur(event);
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {

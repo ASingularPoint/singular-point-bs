@@ -1,19 +1,23 @@
 // 公共函数
 
 // 解决element plus按钮点击后不失焦
-export const elmBtnBlur = function (event: any) {
-  event.target.blur();
-  if (event.target.nodeName === "BUTTON") {
-    event.target.parentNode.blur();
+export const elmBtnBlur = function (event: Event) {
+  const target = event.target as HTMLInputElement;
+  const parentNode = target.parentNode as HTMLInputElement;
+  target.blur();
+  if (target.nodeName === "BUTTON") {
+    parentNode.blur();
   }
   if (
-    event.target.nodeName === "SPAN" ||
-    event.target.nodeName === "svg" ||
-    event.target.nodeName === "path"
+    target.nodeName === "SPAN" ||
+    target.nodeName === "svg" ||
+    target.nodeName === "path"
   ) {
-    event.path.forEach((element: any) => {
-      if (element.nodeName === "BUTTON") {
-        element.blur();
+    event.composedPath().forEach((element: EventTarget) => {
+      if (element instanceof HTMLInputElement) {
+        if (element.nodeName === "BUTTON") {
+          element.blur();
+        }
       }
     });
   }

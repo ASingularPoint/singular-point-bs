@@ -3,7 +3,8 @@
     <TableHeader
       :isSelection="isSelection"
       @add="onUserAdd"
-      @remove="onUserRemove"
+      @edit="onUserBatchEdit"
+      @remove="onUserBatchRemove"
       @refresh="refresh"
       @search="search"
     ></TableHeader>
@@ -73,6 +74,7 @@ import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 
 import AddUserDialog from "./add/index";
 import EditUserDialog from "./edit/index";
+import BatchEditUserDialog from "./batchEdit/index";
 
 import { GetUserList, DeleteUser, BatchDeleteUser } from "@/api/system/user";
 import { GetRoleList } from "@/api/system/role";
@@ -210,8 +212,21 @@ const onUserEdit = (val: number) => {
   });
 };
 
+// 批量修改
+const onUserBatchEdit = () => {
+  BatchEditUserDialog({
+    props: {
+      userIds: multipleSelectionIds.value,
+      onSubmit: () => {
+        getData();
+        getRoleListData();
+      },
+    },
+  });
+};
+
 // 批量删除
-const onUserRemove = () => {
+const onUserBatchRemove = () => {
   BatchDeleteUser({
     userId: multipleSelectionIds.value,
   }).then((res) => {
@@ -231,7 +246,7 @@ const search = (val: string) => {
 };
 
 // 每条数据的修改按钮
-const handleEdit = (event: any, row: GetUserListData) => {
+const handleEdit = (event: Event, row: GetUserListData) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
   onUserEdit(row.userId);
 };
@@ -251,7 +266,7 @@ const handleDelete = (row: GetUserListData) => {
 };
 
 // 删除按钮失焦
-const btnRestore = (event: any) => {
+const btnRestore = (event: Event) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
 };
 
@@ -267,11 +282,11 @@ const handleCurrentChange = (val: number) => {
 
 // 表格多选
 const handleSelectionChange = (val: GetUserListData[]) => {
+  let data: number[] = [];
   val.forEach((item) => {
-    if (!multipleSelectionIds.value.includes(item.userId)) {
-      multipleSelectionIds.value.push(item.userId);
-    }
+    data.push(item.userId);
   });
+  multipleSelectionIds.value = data;
   isSelection.value = val.length > 0 ? false : true;
 };
 </script>

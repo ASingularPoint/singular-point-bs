@@ -108,19 +108,19 @@ const { appContext }: IAppContext =
   getCurrentInstance() as ComponentInternalInstance;
 
 // 刷新按钮
-const refresh = (event: any) => {
+const refresh = (event: Event) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
   emit("refresh");
 };
 
 // 添加按钮
-const add = (event: any) => {
+const add = (event: Event) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
   emit("add");
 };
 
 // 修改按钮
-const edit = (event: any) => {
+const edit = (event: Event) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
   emit("edit");
 };
@@ -129,12 +129,12 @@ const edit = (event: any) => {
 const handleDelete = () => {
   emit("remove");
 };
-const btnRestore = (event: any) => {
+const btnRestore = (event: Event) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
 };
 
 // 搜索按钮
-const search = (event: any) => {
+const search = (event: Event) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
   emit("search", searchValue);
 };
