@@ -144,9 +144,14 @@ interface BatchDeleteUserRecordParams {
 
 //  ********** RoleIndex *********
 
+interface GetRoleListRawParams {
+  search: string;
+}
+interface GetRoleListParams
+  extends CommonPaginationParams,
+    GetRoleListRawParams {}
 interface GetRoleListData {
   roleId: string | number;
   name: string;
-  contextMenu: string;
   createTime: string;
 }

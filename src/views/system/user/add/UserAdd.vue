@@ -75,7 +75,7 @@ onMounted(() => {
   getRoleSelectTreeData();
 });
 
-// 获取角色列表
+// 获取角色树
 const getRoleSelectTreeData = () => {
   getRoleSelectTree().then((res) => {
     roleListData.value = res;
