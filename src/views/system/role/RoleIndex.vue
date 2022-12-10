@@ -76,7 +76,7 @@ import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 // import EditUserDialog from "./edit/index";
 // import BatchEditUserDialog from "./batchEdit/index";
 
-import { getRoleSelectTree } from "@/api/system/role";
+import { getRoleList } from "@/api/system/role";
 import { TimeFormat } from "@/utils/dataFormat";
 
 interface IAppContext {
@@ -100,14 +100,14 @@ const columns: Columns[] = [
     width: "50",
   },
   {
-    prop: "accountName",
-    label: "用户名",
-    width: "180",
+    prop: "roleId",
+    label: "ID",
+    width: "80",
     align: "left",
   },
   {
-    prop: "role.name",
-    label: "角色",
+    prop: "name",
+    label: "角色名",
     width: "180",
     align: "left",
   },
@@ -126,15 +126,12 @@ const columns: Columns[] = [
 ];
 
 // 表格内容
-const tableData = ref<GetUserListData[]>([]);
+const tableData = ref<GetRoleListData[]>([]);
 const multipleSelectionIds = ref<number[]>([]);
 const isSelection = ref<boolean>(true);
 
-// 角色列表
-const roleListData = ref<GetRoleListData[]>([]);
-
 const loading = ref<boolean>(false);
-const searchForm = reactive<GetUserListRawParams>({
+const searchForm = reactive<GetRoleListRawParams>({
   search: "",
 });
 
@@ -151,13 +148,12 @@ const pageInfo: IPagination = reactive({
 
 onMounted(() => {
   getData();
-  getRoleListData();
 });
 
 // 获取数据
 const getData = () => {
   loading.value = true;
-  GetUserList({
+  getRoleList({
     ...searchForm,
     currentPage: pageInfo.currentPage,
     pageSize: pageInfo.pageSize,
@@ -170,15 +166,6 @@ const getData = () => {
     });
 };
 
-// 获取角色列表
-const getRoleListData = () => {
-  getRoleSelectTree()
-    .then((res) => new TimeFormat("createTime").pipe(res))
-    .then((res) => {
-      roleListData.value = res.records;
-    });
-};
-
 // 刷新数据
 const refresh = () => {
   searchForm.search = "";
@@ -188,54 +175,51 @@ const refresh = () => {
 
 // 添加
 const onUserAdd = () => {
-  AddUserDialog({
-    props: {
-      onSubmit: () => {
-        getData();
-        getRoleListData();
-      },
-    },
-  });
+  // AddUserDialog({
+  //   props: {
+  //     onSubmit: () => {
+  //       getData();
+  //     },
+  //   },
+  // });
 };
 
 // 编辑
 const onUserEdit = (val: number) => {
-  EditUserDialog({
-    props: {
-      userId: val,
-      onSubmit: () => {
-        getData();
-        getRoleListData();
-      },
-    },
-  });
+  // EditUserDialog({
+  //   props: {
+  //     userId: val,
+  //     onSubmit: () => {
+  //       getData();
+  //     },
+  //   },
+  // });
 };
 
 // 批量修改
 const onUserBatchEdit = () => {
-  BatchEditUserDialog({
-    props: {
-      userIds: multipleSelectionIds.value,
-      onSubmit: () => {
-        getData();
-        getRoleListData();
-      },
-    },
-  });
+  // BatchEditUserDialog({
+  //   props: {
+  //     userIds: multipleSelectionIds.value,
+  //     onSubmit: () => {
+  //       getData();
+  //     },
+  //   },
+  // });
 };
 
 // 批量删除
 const onUserBatchRemove = () => {
-  BatchDeleteUser({
-    userId: multipleSelectionIds.value,
-  }).then((res) => {
-    getData();
-    ElMessage({
-      showClose: true,
-      message: res,
-      type: "success",
-    });
-  });
+  // BatchDeleteUser({
+  //   userId: multipleSelectionIds.value,
+  // }).then((res) => {
+  //   getData();
+  //   ElMessage({
+  //     showClose: true,
+  //     message: res,
+  //     type: "success",
+  //   });
+  // });
 };
 
 // 搜索回调
@@ -245,23 +229,23 @@ const search = (val: string) => {
 };
 
 // 每条数据的修改按钮
-const handleEdit = (event: Event, row: GetUserListData) => {
+const handleEdit = (event: Event, row: GetRoleListData) => {
   appContext.config.globalProperties.$func.elmBtnBlur(event);
-  onUserEdit(row.userId);
+  onUserEdit(row.roleId as number);
 };
 
 // 每条数据的删除按钮
-const handleDelete = (row: GetUserListData) => {
-  DeleteUser({
-    userId: row.userId,
-  }).then((res) => {
-    getData();
-    ElMessage({
-      showClose: true,
-      message: res,
-      type: "success",
-    });
-  });
+const handleDelete = (row: GetRoleListData) => {
+  // DeleteUser({
+  //   userId: row.userId,
+  // }).then((res) => {
+  //   getData();
+  //   ElMessage({
+  //     showClose: true,
+  //     message: res,
+  //     type: "success",
+  //   });
+  // });
 };
 
 // 删除按钮失焦
@@ -280,10 +264,10 @@ const handleCurrentChange = (val: number) => {
 };
 
 // 表格多选
-const handleSelectionChange = (val: GetUserListData[]) => {
+const handleSelectionChange = (val: GetRoleListData[]) => {
   let data: number[] = [];
   val.forEach((item) => {
-    data.push(item.userId);
+    data.push(item.roleId as number);
   });
   multipleSelectionIds.value = data;
   isSelection.value = val.length > 0 ? false : true;
