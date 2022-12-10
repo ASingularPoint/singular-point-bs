@@ -40,7 +40,7 @@ import ADialogForm from "@/components/ADialogForm/aDialogForm.vue";
 import { TimeFormat } from "@/utils/dataFormat";
 
 import { AddUser } from "@/api/system/user";
-import { GetRoleList } from "@/api/system/role";
+import { getRoleSelectTree } from "@/api/system/role";
 
 interface Model extends AddUserParams {}
 
@@ -72,16 +72,14 @@ const rules = reactive<FormRules>({
 const roleListData = ref<GetRoleListData[]>([]);
 
 onMounted(() => {
-  getRoleListData();
+  getRoleSelectTreeData();
 });
 
 // 获取角色列表
-const getRoleListData = () => {
-  GetRoleList()
-    .then((res) => new TimeFormat("createTime").pipe(res))
-    .then((res) => {
-      roleListData.value = res.records;
-    });
+const getRoleSelectTreeData = () => {
+  getRoleSelectTree().then((res) => {
+    roleListData.value = res;
+  });
 };
 
 const onFormSubmitHandler = () => {

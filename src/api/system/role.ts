@@ -1,8 +1,8 @@
 import request from "@/utils/request";
 
-export function GetRoleList(): Promise<CommonTable<GetRoleListData>> {
+export function getRoleSelectTree(): Promise<GetRoleListData[]> {
   return request({
-    url: "/system-role/list",
+    url: "/system-role/selectTree",
     method: "get",
   });
 }

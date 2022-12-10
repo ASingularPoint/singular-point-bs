@@ -46,7 +46,7 @@ import ADialogForm from "@/components/ADialogForm/aDialogForm.vue";
 import { TimeFormat } from "@/utils/dataFormat";
 
 import { getUserQuery, EditUser } from "@/api/system/user";
-import { GetRoleList } from "@/api/system/role";
+import { getRoleSelectTree } from "@/api/system/role";
 
 interface Props {
   userIds: number[];
@@ -102,7 +102,7 @@ onMounted(() => {
     ? (submitText.value = "保存并编辑下一页")
     : (submitText.value = "保存");
   getData();
-  getRoleListData();
+  getRoleSelectTreeData();
 });
 
 // 获取用户信息
@@ -117,12 +117,10 @@ const getData = () => {
 };
 
 // 获取角色列表
-const getRoleListData = () => {
-  GetRoleList()
-    .then((res) => new TimeFormat("createTime").pipe(res))
-    .then((res) => {
-      roleListData.value = res.records;
-    });
+const getRoleSelectTreeData = () => {
+  getRoleSelectTree().then((res) => {
+    roleListData.value = res;
+  });
 };
 
 const onFormSubmitHandler = () => {
@@ -141,7 +139,7 @@ const onFormSubmitHandler = () => {
       model.passwd = "";
       model.role = "";
       getData();
-      getRoleListData();
+      getRoleSelectTreeData();
     }
     ElMessage({
       showClose: true,

@@ -77,7 +77,7 @@ import EditUserDialog from "./edit/index";
 import BatchEditUserDialog from "./batchEdit/index";
 
 import { GetUserList, DeleteUser, BatchDeleteUser } from "@/api/system/user";
-import { GetRoleList } from "@/api/system/role";
+import { getRoleSelectTree } from "@/api/system/role";
 import { TimeFormat } from "@/utils/dataFormat";
 
 interface IAppContext {
@@ -99,6 +99,12 @@ const columns: Columns[] = [
   {
     type: "selection",
     width: "50",
+  },
+  {
+    prop: "userId",
+    label: "ID",
+    width: "80",
+    align: "left",
   },
   {
     prop: "accountName",
@@ -152,7 +158,7 @@ const pageInfo: IPagination = reactive({
 
 onMounted(() => {
   getData();
-  getRoleListData();
+  getRoleSelectTreeData();
 });
 
 // 获取数据
@@ -172,12 +178,10 @@ const getData = () => {
 };
 
 // 获取角色列表
-const getRoleListData = () => {
-  GetRoleList()
-    .then((res) => new TimeFormat("createTime").pipe(res))
-    .then((res) => {
-      roleListData.value = res.records;
-    });
+const getRoleSelectTreeData = () => {
+  getRoleSelectTree().then((res) => {
+    roleListData.value = res;
+  });
 };
 
 // 刷新数据
@@ -193,7 +197,7 @@ const onUserAdd = () => {
     props: {
       onSubmit: () => {
         getData();
-        getRoleListData();
+        getRoleSelectTreeData();
       },
     },
   });
@@ -206,7 +210,7 @@ const onUserEdit = (val: number) => {
       userId: val,
       onSubmit: () => {
         getData();
-        getRoleListData();
+        getRoleSelectTreeData();
       },
     },
   });
@@ -219,7 +223,7 @@ const onUserBatchEdit = () => {
       userIds: multipleSelectionIds.value,
       onSubmit: () => {
         getData();
-        getRoleListData();
+        getRoleSelectTreeData();
       },
     },
   });
