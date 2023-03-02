@@ -59,7 +59,7 @@ const handleClose = (tag: ToolBarData) => {
     }
   }
 
-  ::v-deep .el-tag__close {
+  :deep(.el-tag__close) {
     color: #000;
 
     &:hover {

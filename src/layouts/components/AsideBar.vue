@@ -111,13 +111,13 @@ const isCollapse = ref(false);
   }
 
   .el-sub-menu {
-    ::v-deep .el-sub-menu__title:hover {
+    :deep(.el-sub-menu__title:hover) {
       background-color: transparent;
     }
   }
 
   .el-menu-item-group {
-    ::v-deep .el-menu-item-group__title {
+    :deep(.el-menu-item-group__title) {
       display: none;
     }
   }

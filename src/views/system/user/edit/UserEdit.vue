@@ -124,7 +124,7 @@ const onFormSubmitHandler = () => {
 <style lang="scss" scoped>
 .a-dialog-form {
   .el-select {
-    ::v-deep .el-input__validateIcon {
+    :deep(.el-input__validateIcon) {
       display: none !important;
     }
   }

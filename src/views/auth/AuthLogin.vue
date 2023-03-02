@@ -135,7 +135,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     border: none;
     margin-top: 130px;
 
-    ::v-deep .el-card__body {
+    :deep(.el-card__body) {
       padding: 0;
     }
     .login-header {

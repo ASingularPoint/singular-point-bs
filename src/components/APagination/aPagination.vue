@@ -55,28 +55,28 @@ const handleCurrentChange = (val: number) => {
   padding: 10px;
 
   .el-pagination {
-    ::v-deep .el-pagination__total {
+    :deep(.el-pagination__total) {
       // 总数
       order: 1;
     }
-    ::v-deep .el-pagination__sizes {
+    :deep(.el-pagination__sizes) {
       // select 行数选择器
       order: 0;
     }
-    ::v-deep .btn-prev {
+    :deep(.btn-prev) {
       // 上一页按钮
       order: 2;
       margin-left: auto;
     }
-    ::v-deep .el-pager {
+    :deep(.el-pager) {
       // 页码按钮
       order: 3;
     }
-    ::v-deep .btn-next {
+    :deep(.btn-next) {
       // 下一页按钮
       order: 4;
     }
-    ::v-deep .el-pagination__jump {
+    :deep(.el-pagination__jump) {
       // 跳转页面按钮
       order: 5;
     }
