@@ -1,4 +1,4 @@
-import request from "@/utils/request";
+import request from "@/plugins/request";
 
 // 获取用户列表
 export function GetUserList(
