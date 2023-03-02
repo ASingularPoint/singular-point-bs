@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTagStore } from "@/store/modules/tag";
+import { useTagStore } from "@/plugins/store/modules/tag";
 import { useRoute, useRouter } from "vue-router";
 
 const Route = useRoute();
@@ -59,7 +59,7 @@ const handleClose = (tag: ToolBarData) => {
     }
   }
 
-  ::v-deep .el-tag__close {
+  :deep(.el-tag__close) {
     color: #000;
 
     &:hover {

@@ -65,7 +65,7 @@ const handleSelectAll = (selection: Itabledata[]) => {
 
 <style lang="scss" scoped>
 .a-table {
-  ::v-deep .el-table__placeholder {
+  :deep(.el-table__placeholder) {
     width: 0;
   }
 }

@@ -1,4 +1,4 @@
-import request from "@/utils/request";
+import request from "@/plugins/request";
 
 export function getRoleList(
   data: GetRoleListParams

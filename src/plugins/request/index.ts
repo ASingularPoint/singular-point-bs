@@ -5,7 +5,7 @@ import axios, {
   AxiosResponse,
 } from "axios";
 import { ElMessage } from "element-plus";
-import { useUserStore } from "@/store/modules/user";
+import { useUserStore } from "@/plugins/store/modules/user";
 
 const userStore = useUserStore();
 

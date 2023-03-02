@@ -77,17 +77,9 @@
 </template>
 
 <script setup lang="ts">
-import {
-  getCurrentInstance,
-  ComponentInternalInstance,
-  AppContext,
-  ref,
-} from "vue";
+import { ref } from "vue";
 import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
-
-interface IAppContext {
-  appContext: AppContext;
-}
+import { elmBtnBlur } from "@/utils/func";
 
 interface Props {
   isSelection: boolean;
@@ -103,25 +95,21 @@ const emit = defineEmits(["refresh", "add", "edit", "remove", "search"]);
 
 const searchValue = ref<string>("");
 
-// 获取应用vue实例上下文
-const { appContext }: IAppContext =
-  getCurrentInstance() as ComponentInternalInstance;
-
 // 刷新按钮
 const refresh = (event: Event) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
   emit("refresh");
 };
 
 // 添加按钮
 const add = (event: Event) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
   emit("add");
 };
 
 // 修改按钮
 const edit = (event: Event) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
   emit("edit");
 };
 
@@ -130,12 +118,12 @@ const handleDelete = () => {
   emit("remove");
 };
 const btnRestore = (event: Event) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
 };
 
 // 搜索按钮
 const search = (event: Event) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
   emit("search", searchValue);
 };
 </script>

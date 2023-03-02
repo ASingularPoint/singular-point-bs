@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import { UserFilled } from "@element-plus/icons-vue";
-import { useUserStore } from "@/store/modules/user";
+import { useUserStore } from "@/plugins/store/modules/user";
 import { convertTime } from "@/utils/times";
 import { ref } from "vue";
 

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import router from "@/router/index";
+import router from "@/plugins/router/index";
 
 interface State {
   toolBarData: ToolBarData[];

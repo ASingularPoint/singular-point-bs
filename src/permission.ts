@@ -1,10 +1,10 @@
-import router from "@/router/index";
+import router from "@/plugins/router/index";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import getPageTitle from "@/utils/getPageTitle";
-import constantsRoutes from "@/router/constantsRoutes";
-import { useUserStore } from "@/store/modules/user";
-import { useTagStore } from "@/store/modules/tag";
+import constantsRoutes from "@/plugins/router/constantsRoutes";
+import { useUserStore } from "@/plugins/store/modules/user";
+import { useTagStore } from "@/plugins/store/modules/tag";
 
 NProgress.configure({
   showSpinner: false,

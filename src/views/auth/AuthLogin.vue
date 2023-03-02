@@ -60,7 +60,7 @@ import type { FormInstance } from "element-plus";
 import { UserLogin } from "@/api/auth/login";
 import md5 from "crypto-js/md5";
 import { ElMessage } from "element-plus";
-import { useUserStore } from "@/store/modules/user";
+import { useUserStore } from "@/plugins/store/modules/user";
 import { useRouter } from "vue-router";
 
 const store = useUserStore();
@@ -135,7 +135,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     border: none;
     margin-top: 130px;
 
-    ::v-deep .el-card__body {
+    :deep(.el-card__body) {
       padding: 0;
     }
     .login-header {

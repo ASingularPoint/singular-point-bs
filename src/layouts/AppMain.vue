@@ -27,7 +27,7 @@ import { ElConfigProvider } from "element-plus";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
 import AsideBar from "./components/AsideBar.vue";
 import NavBar from "./components/NavBar.vue";
-import { useTagStore } from "@/store/modules/tag";
+import { useTagStore } from "@/plugins/store/modules/tag";
 
 const tagStore = useTagStore();
 </script>

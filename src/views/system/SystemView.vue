@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTagStore } from "@/store/modules/tag";
+import { useTagStore } from "@/plugins/store/modules/tag";
 
 const tagStore = useTagStore();
 </script>
