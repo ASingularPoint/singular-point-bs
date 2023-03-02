@@ -58,14 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  getCurrentInstance,
-  ComponentInternalInstance,
-  AppContext,
-  reactive,
-  ref,
-  onMounted,
-} from "vue";
+import { reactive, ref, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import TableHeader from "@/components/ATableHeader/aTableHeader.vue";
 import ATable from "@/components/ATable/aTable.vue";
@@ -79,14 +72,7 @@ import BatchEditUserDialog from "./batchEdit/index";
 import { GetUserList, DeleteUser, BatchDeleteUser } from "@/api/system/user";
 import { getRoleSelectTree } from "@/api/system/role";
 import { TimeFormat } from "@/utils/dataFormat";
-
-interface IAppContext {
-  appContext: AppContext;
-}
-
-// 获取全局上下文
-const { appContext }: IAppContext =
-  getCurrentInstance() as ComponentInternalInstance;
+import { elmBtnBlur } from "@/utils/func";
 
 // 表头样式
 const headerCellStyle: HeaderCellStyle = {
@@ -251,7 +237,7 @@ const search = (val: string) => {
 
 // 每条数据的修改按钮
 const handleEdit = (event: Event, row: GetUserListData) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
   onUserEdit(row.userId);
 };
 
@@ -271,7 +257,7 @@ const handleDelete = (row: GetUserListData) => {
 
 // 删除按钮失焦
 const btnRestore = (event: Event) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
 };
 
 // 每页展示数据的条数回调

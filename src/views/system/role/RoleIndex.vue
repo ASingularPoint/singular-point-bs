@@ -58,19 +58,13 @@
 </template>
 
 <script setup lang="ts">
-import {
-  getCurrentInstance,
-  ComponentInternalInstance,
-  AppContext,
-  reactive,
-  ref,
-  onMounted,
-} from "vue";
+import { reactive, ref, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import TableHeader from "@/components/ATableHeader/aTableHeader.vue";
 import ATable from "@/components/ATable/aTable.vue";
 import APagination from "@/components/APagination/aPagination.vue";
 import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
+import { elmBtnBlur } from "@/utils/func";
 
 // import AddUserDialog from "./add/index";
 // import EditUserDialog from "./edit/index";
@@ -78,14 +72,6 @@ import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 
 import { getRoleList } from "@/api/system/role";
 import { TimeFormat } from "@/utils/dataFormat";
-
-interface IAppContext {
-  appContext: AppContext;
-}
-
-// 获取全局上下文
-const { appContext }: IAppContext =
-  getCurrentInstance() as ComponentInternalInstance;
 
 // 表头样式
 const headerCellStyle: HeaderCellStyle = {
@@ -230,7 +216,7 @@ const search = (val: string) => {
 
 // 每条数据的修改按钮
 const handleEdit = (event: Event, row: GetRoleListData) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
   onUserEdit(row.roleId as number);
 };
 
@@ -250,7 +236,7 @@ const handleDelete = (row: GetRoleListData) => {
 
 // 删除按钮失焦
 const btnRestore = (event: Event) => {
-  appContext.config.globalProperties.$func.elmBtnBlur(event);
+  elmBtnBlur(event);
 };
 
 // 每页展示数据的条数回调
