@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { addRoutes, getRoutes, mainRouteName } from "@/permission";
-import router from "@/router/index";
+import router from "@/plugins/router/index";
 import { useTagStore } from "./tag";
 
 interface State {

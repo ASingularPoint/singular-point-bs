@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTagStore } from "@/store/modules/tag";
+import { useTagStore } from "@/plugins/store/modules/tag";
 import { useRoute, useRouter } from "vue-router";
 
 const Route = useRoute();

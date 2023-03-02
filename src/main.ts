@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import router from "./plugins/router";
+import store from "./plugins/store";
 
 import "./styles/reset.css";
 // element icon
@@ -11,7 +11,7 @@ import "element-plus/theme-chalk/el-message.css";
 // auth
 import { routerBeforeEach } from "./permission";
 //  @mdi/font mdi-vue/v3 @mdi/js
-import MDIcon, { config as MDIconConfig } from "@/md-icon/index";
+import MDIcon, { config as MDIconConfig } from "@/plugins/md-icon/index";
 
 const app = createApp(App);
 

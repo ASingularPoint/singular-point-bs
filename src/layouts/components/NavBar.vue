@@ -22,7 +22,7 @@ import ANavTag from "@/components/ANavTag/aNavTag.vue";
 import AToolPopover from "@/components/AToolPopover/aToolPopover.vue";
 import { UserFilled } from "@element-plus/icons-vue";
 import { ref } from "vue";
-import { useUserStore } from "@/store/modules/user";
+import { useUserStore } from "@/plugins/store/modules/user";
 
 const userStore = useUserStore();
 

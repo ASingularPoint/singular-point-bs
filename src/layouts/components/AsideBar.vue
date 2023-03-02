@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { getRouterList } from "@/permission";
-import { useUserStore } from "@/store/modules/user";
+import { useUserStore } from "@/plugins/store/modules/user";
 import { useRoute } from "vue-router";
 
 const Route = useRoute();
