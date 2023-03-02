@@ -45,7 +45,7 @@ class DynamicRender {
     const vm = createVNode(this.component, this.props);
     // 调用createApp创建的上下文
     vm.appContext = App._context;
-    // 清除通知元素，防止mem泄漏
+    // 清除通知元素，防止泄漏
     vm.props = this.props || {};
     // 销毁 render 渲染的 vm
     vm.props!.onDestroy = () => {
