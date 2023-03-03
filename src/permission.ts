@@ -86,6 +86,7 @@ export function addRoutes(_routes: MenuRecord[], _parentName = "") {
   function recursion(routes: MenuRecord[], parentName = "") {
     routes.forEach((item) => {
       if (item.path && item.component) {
+        flatMenuList.push(item);
         const componentString = item.component.replace(/^\/+/, ""); // 过滤字符串前面所有 '/' 字符
         const componentPath = componentString.replace(/\.\w+$/, ""); // 过滤掉后缀名，为了让 import 加入 .vue ，不然会有警告提示...
 
