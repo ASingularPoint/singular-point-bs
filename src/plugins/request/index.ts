@@ -43,7 +43,7 @@ instance.interceptors.response.use(
       showClose: true,
       message: res.error || res.data.message || "Error",
       type: "error",
-      duration: 5 * 1000,
+      duration: 3 * 1000,
     });
     return Promise.reject(new Error(res.error || res.data.message || "Error"));
   },
@@ -55,7 +55,7 @@ instance.interceptors.response.use(
         showClose: true,
         message: "登录超时",
         type: "error",
-        duration: 5 * 1000,
+        duration: 3 * 1000,
       });
       userStore.logout();
       return Promise.reject(error);
@@ -66,7 +66,7 @@ instance.interceptors.response.use(
       message:
         errorResponse.data.error || errorResponse.data.data.message || "Error",
       type: "error",
-      duration: 5 * 1000,
+      duration: 3 * 1000,
     });
 
     return Promise.reject(error);
