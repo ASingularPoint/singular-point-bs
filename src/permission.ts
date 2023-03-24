@@ -32,7 +32,7 @@ export function routerBeforeEach() {
         NProgress.done();
       } else {
         if (!router.hasRoute(to.name || "")) {
-          addRoutes(getRoutes(store.menuPerms), mainRouteName).then(
+          addRoutes(getRoutes(store.associatedMenuList), mainRouteName).then(
             ({ flat }) => {
               const toMenu = flat.find((item) => item.fullPath === to.fullPath);
               if (toMenu) next({ name: toMenu.name });

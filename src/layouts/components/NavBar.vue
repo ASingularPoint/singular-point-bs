@@ -10,7 +10,7 @@
       <AToolPopover>
         <div class="tool-item">
           <el-avatar :size="24" :icon="UserFilled" />
-          <div class="admin-name">{{ userStore.userInfo?.userName }}</div>
+          <div class="admin-name">{{ userStore.user?.userName }}</div>
         </div>
       </AToolPopover>
     </div>

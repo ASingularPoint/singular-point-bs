@@ -67,7 +67,7 @@ const store = useUserStore();
 
 const menuList = ref<MenuRecord[]>([]);
 
-menuList.value = [...getRouterList(store.menuPerms)];
+menuList.value = [...getRouterList(store.associatedMenuList)];
 
 const isCollapse = ref(false);
 </script>

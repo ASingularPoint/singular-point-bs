@@ -5,18 +5,18 @@ import { useTagStore } from "./tag";
 
 interface State {
   accessToken: string;
-  userInfo: UserData | null;
-  menuPerms: MenuRecord[];
+  user: UserData | null;
+  associatedMenuList: MenuRecord[];
 }
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
     accessToken: "",
-    userInfo: {
+    user: {
       userId: "",
       userName: "",
     },
-    menuPerms: [],
+    associatedMenuList: [],
   }),
   getters: {
     isLogin: (state) => state.accessToken,
@@ -24,19 +24,19 @@ export const useUserStore = defineStore("user", {
   actions: {
     async authLogin(res: LoginData): Promise<void> {
       this.accessToken = res.accessToken;
-      this.userInfo = res.userInfo;
-      this.menuPerms = res.menus;
+      this.user = res.user;
+      this.associatedMenuList = res.associatedMenuList;
 
-      await addRoutes(getRoutes(this.menuPerms), mainRouteName);
+      await addRoutes(getRoutes(this.associatedMenuList), mainRouteName);
       return Promise.resolve();
     },
     logout() {
       this.accessToken = "";
-      this.userInfo = {
+      this.user = {
         userId: "",
         userName: "",
       };
-      this.menuPerms = [];
+      this.associatedMenuList = [];
       // 初始化tag
       useTagStore().$reset();
       router.replace("/login");

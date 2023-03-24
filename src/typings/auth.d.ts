@@ -2,11 +2,11 @@
 
 interface LoginData {
   accessToken: string;
-  userInfo: UserData | null;
+  user: UserData | null;
   /**
    * 登录菜单
    */
-  menus: MenuRecord[];
+  associatedMenuList: MenuRecord[];
 }
 
 interface UserLoginParams {
