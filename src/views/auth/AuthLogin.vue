@@ -98,7 +98,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       UserLogin({
-        accountName: ruleForm.accountName,
+        account: ruleForm.accountName,
         password: md5(ruleForm.password).toString().toUpperCase(),
       }).then((res) => {
         store.authLogin(res).then(() => {

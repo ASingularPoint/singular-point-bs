@@ -10,6 +10,6 @@ interface LoginData {
 }
 
 interface UserLoginParams {
-  accountName: string;
+  account: string;
   password: string;
 }
