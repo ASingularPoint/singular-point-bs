@@ -41,14 +41,15 @@ instance.interceptors.response.use(
     }
     ElMessage({
       showClose: true,
-      message: res.message || "Error",
+      message: res.error || res.data.message || "Error",
       type: "error",
       duration: 5 * 1000,
     });
-    return Promise.reject(new Error(res.message || "Error"));
+    return Promise.reject(new Error(res.error || res.data.message || "Error"));
   },
   (error: AxiosError) => {
-    const resStatus = error.request.status;
+    const errorResponse = error.response as AxiosResponse;
+    const resStatus = errorResponse.status;
     if (resStatus === 401) {
       ElMessage({
         showClose: true,
@@ -59,6 +60,14 @@ instance.interceptors.response.use(
       userStore.logout();
       return Promise.reject(error);
     }
+
+    ElMessage({
+      showClose: true,
+      message:
+        errorResponse.data.error || errorResponse.data.data.message || "Error",
+      type: "error",
+      duration: 5 * 1000,
+    });
 
     return Promise.reject(error);
   }
