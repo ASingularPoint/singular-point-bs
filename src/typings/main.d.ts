@@ -6,7 +6,7 @@ interface CommonTable<Record> {
   /**
    * 总条数
    */
-  totalCount: number;
+  total: number;
 }
 
 interface CommonPaginationParams {
@@ -21,7 +21,7 @@ interface CommonPaginationParams {
   /**
    * 总条数
    */
-  totalCount?: number;
+  total?: number;
 }
 
 // user

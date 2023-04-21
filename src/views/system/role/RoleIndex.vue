@@ -147,7 +147,7 @@ const getData = () => {
     .then((res) => new TimeFormat(["createTime", "updateTime"]).pipe(res))
     .then((res) => {
       tableData.value = res.records;
-      pageInfo.total = res.totalCount;
+      pageInfo.total = res.total;
       loading.value = false;
     });
 };
