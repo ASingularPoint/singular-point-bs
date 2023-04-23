@@ -14,4 +14,5 @@ interface Columns {
   width?: string;
   align?: string;
   slot?: string;
+  showOverflowTooltip?: boolean;
 }

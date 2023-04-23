@@ -20,6 +20,7 @@
         :label="item.label"
         :width="item.width"
         :align="item.align"
+        :show-overflow-tooltip="item.showOverflowTooltip"
       >
         <template #default="scope">
           <slot v-if="item.slot" :name="item.slot" :row="scope.row"> </slot>
