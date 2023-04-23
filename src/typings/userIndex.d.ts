@@ -1,6 +1,6 @@
 // ******* UserIndex ******
 interface GetUserListRawParams {
-  search: string;
+  userName: string;
 }
 
 interface GetUserListParams
@@ -8,35 +8,42 @@ interface GetUserListParams
     GetUserListRawParams {}
 
 interface GetUserListData {
-  userId: number;
-  accountName: string;
-  role: string | number | GetRoleListData;
+  id: string;
+  userName: string;
+  account: string;
+  sex: string;
+  age: number;
+  email: string;
+  phone: string;
+  avatar: string;
+  role: string;
+  userStatus: number;
+  isDelete: boolean;
   createTime: string;
   updateTime: string;
-  children?: Record[];
 }
 
 interface QueryUserParams {
-  userId: number;
+  id: number;
 }
 
 interface AddUserParams {
-  accountName: string;
-  passwd: string;
-  role: string | number;
+  account: string;
+  password: string;
+  role: string;
 }
 
 interface EditUserParams {
-  userId: number | null;
-  accountName: string;
-  passwd: string;
-  role: string | number;
+  id: number | null;
+  account: string;
+  password: string;
+  role: string;
 }
 
 interface DeleteUserRecordParams {
-  userId: number;
+  id: string;
 }
 
 interface BatchDeleteUserRecordParams {
-  userId: number[];
+  ids: string[];
 }

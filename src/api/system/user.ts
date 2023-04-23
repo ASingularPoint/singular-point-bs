@@ -5,7 +5,7 @@ export function GetUserList(
   data: GetUserListParams
 ): Promise<CommonTable<GetUserListData>> {
   return request({
-    url: "/system-user/list",
+    url: "/users",
     method: "get",
     params: data,
   });
@@ -14,7 +14,7 @@ export function GetUserList(
 // 通过id获取用户信息
 export function getUserQuery(data: QueryUserParams): Promise<GetUserListData> {
   return request({
-    url: "/system-user/query",
+    url: "/users",
     method: "get",
     params: data,
   });
@@ -23,7 +23,7 @@ export function getUserQuery(data: QueryUserParams): Promise<GetUserListData> {
 // 添加用户
 export function AddUser(data: AddUserParams): Promise<string> {
   return request({
-    url: "/system-user/add",
+    url: "/users",
     method: "post",
     data,
   });
@@ -32,8 +32,8 @@ export function AddUser(data: AddUserParams): Promise<string> {
 // 编辑用户
 export function EditUser(data: EditUserParams): Promise<string> {
   return request({
-    url: "/system-user/edit",
-    method: "post",
+    url: "/users",
+    method: "patch",
     data,
   });
 }
@@ -41,9 +41,8 @@ export function EditUser(data: EditUserParams): Promise<string> {
 // 删除用户
 export function DeleteUser(data: DeleteUserRecordParams): Promise<string> {
   return request({
-    url: "/system-user/delete",
+    url: "/users/" + data.id,
     method: "delete",
-    params: data,
   });
 }
 
@@ -52,7 +51,7 @@ export function BatchDeleteUser(
   data: BatchDeleteUserRecordParams
 ): Promise<string> {
   return request({
-    url: "/system-user/batchDelete",
+    url: "/users",
     method: "delete",
     data,
   });
