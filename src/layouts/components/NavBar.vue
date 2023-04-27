@@ -5,7 +5,8 @@
     </div>
     <div class="nav-bar__tool">
       <div class="tool-item" @click="fullScreen">
-        <mdicon name="CropFree" size="20"></mdicon>
+        <mdicon v-show="!isFullScreen" name="fullscreen" size="20"></mdicon>
+        <mdicon v-show="isFullScreen" name="fullscreen-exit" size="20"></mdicon>
       </div>
       <AToolPopover>
         <div class="tool-item">
