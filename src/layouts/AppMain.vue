@@ -28,8 +28,20 @@ import zhCn from "element-plus/lib/locale/lang/zh-cn";
 import AsideBar from "./components/AsideBar.vue";
 import NavBar from "./components/NavBar.vue";
 import { useTagStore } from "@/plugins/store/modules/tag";
+import { index } from "@/api/index";
+import { onMounted } from "vue";
 
 const tagStore = useTagStore();
+
+onMounted(() => {
+  init();
+});
+
+const init = () => {
+  index().then((res) => {
+    console.log(res);
+  });
+};
 </script>
 
 <style lang="scss" scoped>

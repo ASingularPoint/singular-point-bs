@@ -7,3 +7,10 @@ export function UserLogin(data: UserLoginParams): Promise<LoginData> {
     data,
   });
 }
+
+export function index() {
+  return request({
+    url: "/auth/index",
+    method: "get",
+  });
+}
