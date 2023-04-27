@@ -6,7 +6,7 @@ import { useTagStore } from "./tag";
 interface State {
   accessToken: string;
   user: UserData | null;
-  associatedMenuList: MenuRecord[];
+  menus: MenuRecord[];
 }
 
 export const useUserStore = defineStore("user", {
@@ -16,18 +16,19 @@ export const useUserStore = defineStore("user", {
       userId: "",
       userName: "",
     },
-    associatedMenuList: [],
+    menus: [],
   }),
   getters: {
     isLogin: (state) => state.accessToken,
   },
   actions: {
-    async authLogin(res: LoginData): Promise<void> {
+    async authLogin(res: LoginData) {
       this.accessToken = res.accessToken;
       this.user = res.user;
-      this.associatedMenuList = res.associatedMenuList;
-
-      await addRoutes(getRoutes(this.associatedMenuList), mainRouteName);
+      router.replace("/");
+    },
+    async index() {
+      await addRoutes(getRoutes(this.menus), mainRouteName);
       return Promise.resolve();
     },
     logout() {
@@ -36,7 +37,7 @@ export const useUserStore = defineStore("user", {
         userId: "",
         userName: "",
       };
-      this.associatedMenuList = [];
+      this.menus = [];
       // 初始化tag
       useTagStore().$reset();
       router.replace("/login");

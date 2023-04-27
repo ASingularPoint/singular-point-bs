@@ -32,13 +32,11 @@ export function routerBeforeEach() {
         NProgress.done();
       } else {
         if (!router.hasRoute(to.name || "")) {
-          addRoutes(getRoutes(store.associatedMenuList), mainRouteName).then(
-            ({ flat }) => {
-              const toMenu = flat.find((item) => item.fullPath === to.fullPath);
-              if (toMenu) next({ name: toMenu.name });
-              else next({ name: mainRouteName });
-            }
-          );
+          addRoutes(getRoutes(store.menus), mainRouteName).then(({ flat }) => {
+            const toMenu = flat.find((item) => item.fullPath === to.fullPath);
+            if (toMenu) next({ name: toMenu.name });
+            else next({ name: mainRouteName });
+          });
         } else {
           next();
         }
