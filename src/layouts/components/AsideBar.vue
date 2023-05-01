@@ -56,20 +56,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { getRouterList } from "@/permission";
 import { useUserStore } from "@/plugins/store/modules/user";
 import { useRoute } from "vue-router";
 
 const Route = useRoute();
 
-const store = useUserStore();
+const userStore = useUserStore();
 
-const menuList = ref<MenuRecord[]>([]);
+const menuList = computed(() => {
+  return getRouterList(userStore.menus);
+});
 
-menuList.value = [...getRouterList(store.menus)];
-
-const isCollapse = ref(false);
+const isCollapse = ref<boolean>(false);
 </script>
 
 <style lang="scss" scoped>
