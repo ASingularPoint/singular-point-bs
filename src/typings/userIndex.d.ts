@@ -12,11 +12,11 @@ interface GetUserListData {
   userName: string;
   account: string;
   sex: string;
-  age: number;
-  email: string;
-  phone: string;
-  avatar: string;
-  role: string;
+  age: number | null;
+  email: string | null;
+  phone: string | null;
+  avatar: string | null;
+  role: string | null;
   userStatus: number;
   isDelete: boolean;
   createTime: string;

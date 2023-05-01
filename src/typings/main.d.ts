@@ -26,8 +26,19 @@ interface CommonPaginationParams {
 
 // user
 interface UserData {
-  userId: string;
+  id: string;
   userName: string;
+  account: string;
+  sex: string;
+  age: number | null;
+  email: string | null;
+  phone: string | null;
+  avatar: string | null;
+  role: string | null;
+  userStatus: number;
+  isDelete: boolean;
+  createTime: string;
+  updateTime: string;
 }
 
 // tab
