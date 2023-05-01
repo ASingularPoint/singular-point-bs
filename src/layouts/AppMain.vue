@@ -28,9 +28,11 @@ import zhCn from "element-plus/lib/locale/lang/zh-cn";
 import AsideBar from "./components/AsideBar.vue";
 import NavBar from "./components/NavBar.vue";
 import { useTagStore } from "@/plugins/store/modules/tag";
+import { useUserStore } from "@/plugins/store/modules/user";
 import { index } from "@/api/index";
 import { onMounted } from "vue";
 
+const userStore = useUserStore();
 const tagStore = useTagStore();
 
 onMounted(() => {
@@ -39,7 +41,7 @@ onMounted(() => {
 
 const init = () => {
   index().then((res) => {
-    console.log(res);
+    userStore.index(res);
   });
 };
 </script>

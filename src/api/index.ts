@@ -8,7 +8,7 @@ export function UserLogin(data: UserLoginParams): Promise<LoginData> {
   });
 }
 
-export function index() {
+export function index(): Promise<IndexData> {
   return request({
     url: "/auth/index",
     method: "get",

@@ -5,16 +5,27 @@ import { useTagStore } from "./tag";
 
 interface State {
   accessToken: string;
-  user: UserData | null;
+  userInfo: UserData | null;
   menus: MenuRecord[];
 }
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
     accessToken: "",
-    user: {
-      userId: "",
+    userInfo: {
+      id: "",
       userName: "",
+      account: "",
+      sex: "",
+      age: 0,
+      email: "",
+      phone: "",
+      avatar: "",
+      role: "",
+      userStatus: 1,
+      isDelete: false,
+      createTime: "",
+      updateTime: "",
     },
     menus: [],
   }),
@@ -24,18 +35,31 @@ export const useUserStore = defineStore("user", {
   actions: {
     async authLogin(res: LoginData) {
       this.accessToken = res.accessToken;
-      this.user = res.user;
+      this.userInfo = res.userInfo;
       router.replace("/");
     },
-    async index() {
+    async index(res: IndexData) {
+      this.userInfo = res.userInfo;
+      this.menus = res.menus;
       await addRoutes(getRoutes(this.menus), mainRouteName);
       return Promise.resolve();
     },
     logout() {
       this.accessToken = "";
-      this.user = {
-        userId: "",
+      this.userInfo = {
+        id: "",
         userName: "",
+        account: "",
+        sex: "",
+        age: 0,
+        email: "",
+        phone: "",
+        avatar: "",
+        role: "",
+        userStatus: 1,
+        isDelete: false,
+        createTime: "",
+        updateTime: "",
       };
       this.menus = [];
       // 初始化tag
