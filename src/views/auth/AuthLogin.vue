@@ -62,7 +62,7 @@ import md5 from "crypto-js/md5";
 import { ElMessage } from "element-plus";
 import { useUserStore } from "@/plugins/store/modules/user";
 
-const store = useUserStore();
+const userStore = useUserStore();
 
 const ruleFormRef = ref<FormInstance>();
 
@@ -99,7 +99,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
         account: ruleForm.accountName,
         password: md5(ruleForm.password).toString().toUpperCase(),
       }).then((res) => {
-        store.authLogin(res);
+        userStore.authLogin(res);
         ElMessage({
           showClose: true,
           message: "登录成功",
