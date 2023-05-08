@@ -14,9 +14,8 @@ export function GetUserList(
 // 通过id获取用户信息
 export function getUserQuery(data: QueryUserParams): Promise<GetUserListData> {
   return request({
-    url: "/users",
+    url: `/users/${data.id}`,
     method: "get",
-    params: data,
   });
 }
 
@@ -32,7 +31,7 @@ export function AddUser(data: AddUserParams): Promise<string> {
 // 编辑用户
 export function EditUser(data: EditUserParams): Promise<string> {
   return request({
-    url: "/users",
+    url: `/users/${data.id}`,
     method: "patch",
     data,
   });
