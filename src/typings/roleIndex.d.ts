@@ -8,8 +8,7 @@ interface GetRoleListParams
     GetRoleListRawParams {}
 
 interface GetRoleListData {
-  roleId: string | number;
+  id: string;
   name: string;
   createTime: string;
-  children?: Record[];
 }

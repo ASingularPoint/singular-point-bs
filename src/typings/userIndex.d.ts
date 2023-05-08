@@ -16,7 +16,7 @@ interface GetUserListData {
   email: string | null;
   phone: string | null;
   avatar: string | null;
-  role: string | null;
+  role: string;
   userStatus: number;
   isDelete: boolean;
   createTime: string;
@@ -24,7 +24,7 @@ interface GetUserListData {
 }
 
 interface QueryUserParams {
-  id: number;
+  id: string;
 }
 
 interface AddUserParams {
@@ -33,11 +33,8 @@ interface AddUserParams {
   role: string;
 }
 
-interface EditUserParams {
-  id: number | null;
-  account: string;
-  password: string;
-  role: string;
+interface EditUserParams extends AddUserParams {
+  id: string;
 }
 
 interface DeleteUserRecordParams {

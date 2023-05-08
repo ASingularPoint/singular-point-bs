@@ -13,9 +13,9 @@
           class="demo-ruleForm"
           @keydown.enter="submitForm(ruleFormRef)"
         >
-          <el-form-item label="" prop="accountName">
+          <el-form-item label="" prop="account">
             <el-input
-              v-model="ruleForm.accountName"
+              v-model="ruleForm.account"
               type="text"
               size="large"
               autocomplete="off"
@@ -66,7 +66,7 @@ const userStore = useUserStore();
 
 const ruleFormRef = ref<FormInstance>();
 
-const validateAccountName = (rule: any, value: any, callback: any) => {
+const validateAccount = (rule: any, value: any, callback: any) => {
   if (value === "") {
     callback(new Error("请输入账号"));
   } else {
@@ -82,12 +82,12 @@ const validatePassword = (rule: any, value: any, callback: any) => {
 };
 
 const ruleForm = reactive({
-  accountName: "",
+  account: "",
   password: "",
 });
 
 const rules = reactive({
-  accountName: [{ validator: validateAccountName, trigger: "blur" }],
+  account: [{ validator: validateAccount, trigger: "blur" }],
   password: [{ validator: validatePassword, trigger: "blur" }],
 });
 
@@ -96,7 +96,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       UserLogin({
-        account: ruleForm.accountName,
+        account: ruleForm.account,
         password: md5(ruleForm.password).toString().toUpperCase(),
       }).then((res) => {
         userStore.authLogin(res);
