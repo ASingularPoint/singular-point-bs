@@ -16,6 +16,9 @@
       rowKey="id"
       @handleSelectionChange="handleSelectionChange"
     >
+      <template #role="scope">
+        {{ judgeRole(scope.row.role) }}
+      </template>
       <template #operation="scope">
         <el-tooltip
           class="box-item"
@@ -109,6 +112,7 @@ const columns: Columns[] = [
     prop: "role",
     label: "角色",
     width: "180",
+    slot: "role",
     align: "left",
   },
   {
@@ -197,24 +201,11 @@ const onUserAdd = () => {
   });
 };
 
-// 编辑
-const onUserEdit = (val: string) => {
-  EditUserDialog({
-    props: {
-      userId: val,
-      onSubmit: () => {
-        getData();
-        getRoleSelectTreeData();
-      },
-    },
-  });
-};
-
 // 批量修改
 const onUserBatchEdit = () => {
   BatchEditUserDialog({
     props: {
-      userIds: multipleSelectionIds.value,
+      ids: multipleSelectionIds.value,
       onSubmit: () => {
         getData();
         getRoleSelectTreeData();
@@ -246,7 +237,15 @@ const search = (val: string) => {
 // 每条数据的修改按钮
 const handleEdit = (event: Event, row: GetUserListData) => {
   elmBtnBlur(event);
-  onUserEdit(row.id);
+  EditUserDialog({
+    props: {
+      id: row.id,
+      onSubmit: () => {
+        getData();
+        getRoleSelectTreeData();
+      },
+    },
+  });
 };
 
 // 每条数据的删除按钮
@@ -270,12 +269,18 @@ const btnRestore = (event: Event) => {
 
 // 表格多选
 const handleSelectionChange = (val: GetUserListData[]) => {
-  let data: string[] = [];
-  val.forEach((item) => {
-    data.push(item.id);
-  });
+  let data: string[] = val.reduce<string[]>(
+    (pre, cur) => pre.concat(cur.id),
+    []
+  );
   multipleSelectionIds.value = data;
   isSelection.value = val.length > 0 ? false : true;
+};
+
+// 处理角色
+const judgeRole = (id: string) => {
+  const role = roleListData.value.find((item) => item.id === id);
+  return role?.name;
 };
 </script>
 
