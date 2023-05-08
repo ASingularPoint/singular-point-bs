@@ -5,15 +5,19 @@
     v-model:modelValue="modelValue"
     :model="model"
     :rules="rules"
-    @submit="onFormSubmitHandler"
+    @submit="onSubmit"
   >
     <template #form>
-      <el-form-item label="用户名" prop="accountName">
-        <el-input v-model="model.accountName" placeholder="请输入" />
+      <el-form-item label="用户名" prop="account">
+        <el-input v-model="model.account" placeholder="请输入" />
       </el-form-item>
 
-      <el-form-item label="密码" prop="passwd">
-        <el-input v-model="model.passwd" type="password" placeholder="请输入" />
+      <el-form-item label="密码" prop="password">
+        <el-input
+          v-model="model.password"
+          type="password"
+          placeholder="请输入"
+        />
       </el-form-item>
 
       <el-form-item label="角色" prop="role">
@@ -22,7 +26,7 @@
             v-for="(item, index) in roleListData"
             :key="index"
             :label="item.name"
-            :value="item.roleId"
+            :value="item.id"
           />
         </el-select>
       </el-form-item>
@@ -37,8 +41,6 @@ import md5 from "crypto-js/md5";
 
 import ADialogForm from "@/components/ADialogForm/aDialogForm.vue";
 
-import { TimeFormat } from "@/utils/dataFormat";
-
 import { AddUser } from "@/api/system/user";
 import { getRoleSelectTree } from "@/api/system/role";
 
@@ -51,17 +53,17 @@ const title = "添加用户";
 const modelValue = ref<boolean>(true);
 
 const model = reactive<Model>({
-  accountName: "",
-  passwd: "",
+  account: "",
+  password: "",
   role: "",
 });
 
 const rules = reactive<FormRules>({
-  accountName: [
+  account: [
     { required: true, message: "用户名不能为空", trigger: "blur" },
     { min: 3, max: 11, message: "长度应为3到11", trigger: "blur" },
   ],
-  passwd: [
+  password: [
     { required: true, message: "密码不能为空", trigger: "blur" },
     { min: 3, max: 36, message: "长度应为3到36", trigger: "blur" },
   ],
@@ -82,16 +84,16 @@ const getRoleSelectTreeData = () => {
   });
 };
 
-const onFormSubmitHandler = () => {
+const onSubmit = () => {
+  const { password, ...form } = model;
   AddUser({
-    accountName: model.accountName,
-    passwd: md5(model.passwd).toString().toUpperCase(),
-    role: model.role,
-  }).then((res) => {
+    ...form,
+    password: md5(password).toString().toUpperCase(),
+  }).then(() => {
     modelValue.value = false;
     ElMessage({
       showClose: true,
-      message: res,
+      message: "添加成功!",
       type: "success",
     });
     emit("submit");
