@@ -36,16 +36,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
     const res = response.data;
-    if (res.code === 200) {
-      return res.data;
-    }
-    ElMessage({
-      showClose: true,
-      message: res.error || res.data.message || "Error",
-      type: "error",
-      duration: 3 * 1000,
-    });
-    return Promise.reject(new Error(res.error || res.data.message || "Error"));
+    return res.data;
   },
   (error: AxiosError) => {
     const errorResponse = error.response as AxiosResponse;
