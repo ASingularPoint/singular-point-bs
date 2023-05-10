@@ -8,7 +8,11 @@
     @submit="onSubmit"
   >
     <template #form>
-      <el-form-item label="用户名" prop="account">
+      <el-form-item label="用户名" prop="userName">
+        <el-input v-model="model.userName" placeholder="请输入" />
+      </el-form-item>
+
+      <el-form-item label="账号" prop="account">
         <el-input v-model="model.account" placeholder="请输入" />
       </el-form-item>
 
@@ -53,14 +57,19 @@ const title = "添加用户";
 const modelValue = ref<boolean>(true);
 
 const model = reactive<Model>({
+  userName: "",
   account: "",
   password: "",
   role: "",
 });
 
 const rules = reactive<FormRules>({
-  account: [
+  userName: [
     { required: true, message: "用户名不能为空", trigger: "blur" },
+    { min: 1, max: 11, message: "长度应为1到11", trigger: "blur" },
+  ],
+  account: [
+    { required: true, message: "账号不能为空", trigger: "blur" },
     { min: 3, max: 11, message: "长度应为3到11", trigger: "blur" },
   ],
   password: [

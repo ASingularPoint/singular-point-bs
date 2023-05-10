@@ -28,6 +28,7 @@ interface QueryUserParams {
 }
 
 interface AddUserParams {
+  userName: string;
   account: string;
   password: string;
   role: string;

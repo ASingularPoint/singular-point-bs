@@ -10,7 +10,11 @@
     @submit="onSubmit"
   >
     <template #form>
-      <el-form-item label="用户名" prop="account">
+      <el-form-item label="用户名" prop="userName">
+        <el-input v-model="model.userName" placeholder="请输入" />
+      </el-form-item>
+
+      <el-form-item label="账号" prop="account">
         <el-input v-model="model.account" placeholder="请输入" />
       </el-form-item>
 
@@ -69,12 +73,17 @@ const loading = ref<boolean>(false);
 
 const model = reactive<Model>({
   id: "",
+  userName: "",
   account: "",
   password: "",
   role: "",
 });
 
 const rules = reactive<FormRules>({
+  userName: [
+    { required: true, message: "用户名不能为空", trigger: "blur" },
+    { min: 1, max: 11, message: "长度应为1到11", trigger: "blur" },
+  ],
   account: [
     { required: true, message: "用户名不能为空", trigger: "blur" },
     { min: 3, max: 11, message: "长度应为3到11", trigger: "blur" },
@@ -108,6 +117,7 @@ const getData = () => {
   loading.value = true;
   getUserQuery({ id: props.ids[currentIndex.value] }).then((res) => {
     model.id = res.id;
+    model.userName = res.userName;
     model.account = res.account;
     model.role = res.role;
     loading.value = false;
