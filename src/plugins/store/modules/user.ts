@@ -6,37 +6,62 @@ import { useTagStore } from "./tag";
 interface State {
   accessToken: string;
   userInfo: UserData | null;
-  menuPerms: MenuRecord[];
+  menus: MenuRecord[];
 }
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
     accessToken: "",
     userInfo: {
-      userId: "",
+      id: "",
       userName: "",
+      account: "",
+      sex: "",
+      age: 0,
+      email: "",
+      phone: "",
+      avatar: "",
+      role: "",
+      userStatus: 1,
+      isDelete: false,
+      createTime: "",
+      updateTime: "",
     },
-    menuPerms: [],
+    menus: [],
   }),
   getters: {
     isLogin: (state) => state.accessToken,
   },
   actions: {
-    async authLogin(res: LoginData): Promise<void> {
+    async authLogin(res: LoginData) {
       this.accessToken = res.accessToken;
       this.userInfo = res.userInfo;
-      this.menuPerms = res.menus;
-
-      await addRoutes(getRoutes(this.menuPerms), mainRouteName);
+      router.replace("/");
+    },
+    async index(res: IndexData) {
+      this.userInfo = res.userInfo;
+      this.menus = res.menus;
+      await addRoutes(getRoutes(this.menus), mainRouteName);
       return Promise.resolve();
     },
     logout() {
       this.accessToken = "";
       this.userInfo = {
-        userId: "",
+        id: "",
         userName: "",
+        account: "",
+        sex: "",
+        age: 0,
+        email: "",
+        phone: "",
+        avatar: "",
+        role: "",
+        userStatus: 1,
+        isDelete: false,
+        createTime: "",
+        updateTime: "",
       };
-      this.menuPerms = [];
+      this.menus = [];
       // 初始化tag
       useTagStore().$reset();
       router.replace("/login");

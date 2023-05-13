@@ -13,9 +13,9 @@
           class="demo-ruleForm"
           @keydown.enter="submitForm(ruleFormRef)"
         >
-          <el-form-item label="" prop="accountName">
+          <el-form-item label="" prop="account">
             <el-input
-              v-model="ruleForm.accountName"
+              v-model="ruleForm.account"
               type="text"
               size="large"
               autocomplete="off"
@@ -57,18 +57,16 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import type { FormInstance } from "element-plus";
-import { UserLogin } from "@/api/auth/login";
+import { UserLogin } from "@/api/index";
 import md5 from "crypto-js/md5";
 import { ElMessage } from "element-plus";
 import { useUserStore } from "@/plugins/store/modules/user";
-import { useRouter } from "vue-router";
 
-const store = useUserStore();
-const Router = useRouter();
+const userStore = useUserStore();
 
 const ruleFormRef = ref<FormInstance>();
 
-const validateAccountName = (rule: any, value: any, callback: any) => {
+const validateAccount = (rule: any, value: any, callback: any) => {
   if (value === "") {
     callback(new Error("请输入账号"));
   } else {
@@ -84,12 +82,12 @@ const validatePassword = (rule: any, value: any, callback: any) => {
 };
 
 const ruleForm = reactive({
-  accountName: "",
+  account: "",
   password: "",
 });
 
 const rules = reactive({
-  accountName: [{ validator: validateAccountName, trigger: "blur" }],
+  account: [{ validator: validateAccount, trigger: "blur" }],
   password: [{ validator: validatePassword, trigger: "blur" }],
 });
 
@@ -98,14 +96,10 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       UserLogin({
-        accountName: ruleForm.accountName,
+        account: ruleForm.account,
         password: md5(ruleForm.password).toString().toUpperCase(),
       }).then((res) => {
-        store.authLogin(res).then(() => {
-          Router.replace({
-            path: "/",
-          });
-        });
+        userStore.authLogin(res);
         ElMessage({
           showClose: true,
           message: "登录成功",

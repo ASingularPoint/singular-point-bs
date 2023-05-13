@@ -5,12 +5,13 @@
     </div>
     <div class="nav-bar__tool">
       <div class="tool-item" @click="fullScreen">
-        <mdicon name="CropFree" size="20"></mdicon>
+        <mdicon v-show="!isFullScreen" name="fullscreen" size="20"></mdicon>
+        <mdicon v-show="isFullScreen" name="fullscreen-exit" size="20"></mdicon>
       </div>
       <AToolPopover>
         <div class="tool-item">
           <el-avatar :size="24" :icon="UserFilled" />
-          <div class="admin-name">{{ userStore.userInfo?.userName }}</div>
+          <div class="admin-name">{{ userStore.user?.userName }}</div>
         </div>
       </AToolPopover>
     </div>

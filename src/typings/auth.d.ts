@@ -3,13 +3,14 @@
 interface LoginData {
   accessToken: string;
   userInfo: UserData | null;
-  /**
-   * 登录菜单
-   */
-  menus: MenuRecord[];
 }
 
 interface UserLoginParams {
-  accountName: string;
+  account: string;
   password: string;
+}
+
+interface IndexData {
+  userInfo: UserData | null;
+  menus: MenuRecord[];
 }

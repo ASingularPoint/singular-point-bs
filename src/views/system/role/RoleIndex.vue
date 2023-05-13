@@ -113,7 +113,7 @@ const columns: Columns[] = [
 
 // 表格内容
 const tableData = ref<GetRoleListData[]>([]);
-const multipleSelectionIds = ref<number[]>([]);
+const multipleSelectionIds = ref<string[]>([]);
 const isSelection = ref<boolean>(true);
 
 const loading = ref<boolean>(false);
@@ -147,7 +147,7 @@ const getData = () => {
     .then((res) => new TimeFormat(["createTime", "updateTime"]).pipe(res))
     .then((res) => {
       tableData.value = res.records;
-      pageInfo.total = res.totalCount;
+      pageInfo.total = res.total;
       loading.value = false;
     });
 };
@@ -171,7 +171,7 @@ const onUserAdd = () => {
 };
 
 // 编辑
-const onUserEdit = (val: number) => {
+const onUserEdit = (val: string) => {
   // EditUserDialog({
   //   props: {
   //     userId: val,
@@ -217,7 +217,7 @@ const search = (val: string) => {
 // 每条数据的修改按钮
 const handleEdit = (event: Event, row: GetRoleListData) => {
   elmBtnBlur(event);
-  onUserEdit(row.roleId as number);
+  onUserEdit(row.id);
 };
 
 // 每条数据的删除按钮
@@ -251,9 +251,9 @@ const handleCurrentChange = (val: number) => {
 
 // 表格多选
 const handleSelectionChange = (val: GetRoleListData[]) => {
-  let data: number[] = [];
+  let data: string[] = [];
   val.forEach((item) => {
-    data.push(item.roleId as number);
+    data.push(item.id);
   });
   multipleSelectionIds.value = data;
   isSelection.value = val.length > 0 ? false : true;

@@ -6,7 +6,7 @@ interface CommonTable<Record> {
   /**
    * 总条数
    */
-  totalCount: number;
+  total: number;
 }
 
 interface CommonPaginationParams {
@@ -21,13 +21,24 @@ interface CommonPaginationParams {
   /**
    * 总条数
    */
-  totalCount?: number;
+  total?: number;
 }
 
 // user
 interface UserData {
-  userId: string;
+  id: string;
   userName: string;
+  account: string;
+  sex: string;
+  age: number | null;
+  email: string | null;
+  phone: string | null;
+  avatar: string | null;
+  role: string | null;
+  userStatus: number;
+  isDelete: boolean;
+  createTime: string;
+  updateTime: string;
 }
 
 // tab

@@ -36,29 +36,29 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
     const res = response.data;
-    if (res.code === 200) {
-      return res.data;
-    }
-    ElMessage({
-      showClose: true,
-      message: res.message || "Error",
-      type: "error",
-      duration: 5 * 1000,
-    });
-    return Promise.reject(new Error(res.message || "Error"));
+    return res.data;
   },
   (error: AxiosError) => {
-    const resStatus = error.request.status;
+    const errorResponse = error.response as AxiosResponse;
+    const resStatus = errorResponse.status;
     if (resStatus === 401) {
       ElMessage({
         showClose: true,
         message: "登录超时",
         type: "error",
-        duration: 5 * 1000,
+        duration: 3 * 1000,
       });
       userStore.logout();
       return Promise.reject(error);
     }
+
+    ElMessage({
+      showClose: true,
+      message:
+        errorResponse.data.error || errorResponse.data.data.message || "Error",
+      type: "error",
+      duration: 3 * 1000,
+    });
 
     return Promise.reject(error);
   }

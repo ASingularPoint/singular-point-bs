@@ -13,9 +13,12 @@
       :columns="columns"
       :tableData="tableData"
       :loading="loading"
-      rowKey="userId"
+      rowKey="id"
       @handleSelectionChange="handleSelectionChange"
     >
+      <template #role="scope">
+        {{ judgeRole(scope.row.role) }}
+      </template>
       <template #operation="scope">
         <el-tooltip
           class="box-item"
@@ -51,8 +54,8 @@
     </ATable>
     <APagination
       :pageInfo="pageInfo"
-      @handleSizeChange="handleSizeChange"
-      @handleCurrentChange="handleCurrentChange"
+      @handleSizeChange="getData"
+      @handleCurrentChange="getData"
     ></APagination>
   </div>
 </template>
@@ -87,21 +90,29 @@ const columns: Columns[] = [
     width: "50",
   },
   {
-    prop: "userId",
+    prop: "id",
     label: "ID",
-    width: "80",
+    width: "100",
     align: "left",
+    showOverflowTooltip: true,
   },
   {
-    prop: "accountName",
+    prop: "userName",
     label: "用户名",
     width: "180",
     align: "left",
   },
   {
-    prop: "role.name",
+    prop: "account",
+    label: "账号",
+    width: "180",
+    align: "left",
+  },
+  {
+    prop: "role",
     label: "角色",
     width: "180",
+    slot: "role",
     align: "left",
   },
   {
@@ -120,7 +131,7 @@ const columns: Columns[] = [
 
 // 表格内容
 const tableData = ref<GetUserListData[]>([]);
-const multipleSelectionIds = ref<number[]>([]);
+const multipleSelectionIds = ref<string[]>([]);
 const isSelection = ref<boolean>(true);
 
 // 角色列表
@@ -128,7 +139,7 @@ const roleListData = ref<GetRoleListData[]>([]);
 
 const loading = ref<boolean>(false);
 const searchForm = reactive<GetUserListRawParams>({
-  search: "",
+  userName: "",
 });
 
 // 分页信息
@@ -149,16 +160,17 @@ onMounted(() => {
 
 // 获取数据
 const getData = () => {
+  const { currentPage, pageSize } = pageInfo;
   loading.value = true;
   GetUserList({
     ...searchForm,
-    currentPage: pageInfo.currentPage,
-    pageSize: pageInfo.pageSize,
+    currentPage,
+    pageSize,
   })
     .then((res) => new TimeFormat(["createTime", "updateTime"]).pipe(res))
     .then((res) => {
       tableData.value = res.records;
-      pageInfo.total = res.totalCount;
+      pageInfo.total = res.total;
       loading.value = false;
     });
 };
@@ -172,7 +184,7 @@ const getRoleSelectTreeData = () => {
 
 // 刷新数据
 const refresh = () => {
-  searchForm.search = "";
+  searchForm.userName = "";
   tableData.value = [];
   getData();
 };
@@ -189,24 +201,11 @@ const onUserAdd = () => {
   });
 };
 
-// 编辑
-const onUserEdit = (val: number) => {
-  EditUserDialog({
-    props: {
-      userId: val,
-      onSubmit: () => {
-        getData();
-        getRoleSelectTreeData();
-      },
-    },
-  });
-};
-
 // 批量修改
 const onUserBatchEdit = () => {
   BatchEditUserDialog({
     props: {
-      userIds: multipleSelectionIds.value,
+      ids: multipleSelectionIds.value,
       onSubmit: () => {
         getData();
         getRoleSelectTreeData();
@@ -218,7 +217,7 @@ const onUserBatchEdit = () => {
 // 批量删除
 const onUserBatchRemove = () => {
   BatchDeleteUser({
-    userId: multipleSelectionIds.value,
+    ids: multipleSelectionIds.value,
   }).then((res) => {
     getData();
     ElMessage({
@@ -231,20 +230,28 @@ const onUserBatchRemove = () => {
 
 // 搜索回调
 const search = (val: string) => {
-  searchForm.search = val;
+  searchForm.userName = val;
   getData();
 };
 
 // 每条数据的修改按钮
 const handleEdit = (event: Event, row: GetUserListData) => {
   elmBtnBlur(event);
-  onUserEdit(row.userId);
+  EditUserDialog({
+    props: {
+      id: row.id,
+      onSubmit: () => {
+        getData();
+        getRoleSelectTreeData();
+      },
+    },
+  });
 };
 
 // 每条数据的删除按钮
 const handleDelete = (row: GetUserListData) => {
   DeleteUser({
-    userId: row.userId,
+    id: row.id,
   }).then((res) => {
     getData();
     ElMessage({
@@ -260,24 +267,20 @@ const btnRestore = (event: Event) => {
   elmBtnBlur(event);
 };
 
-// 每页展示数据的条数回调
-const handleSizeChange = (val: number) => {
-  getData();
-};
-
-// 当前页码的回调
-const handleCurrentChange = (val: number) => {
-  getData();
-};
-
 // 表格多选
 const handleSelectionChange = (val: GetUserListData[]) => {
-  let data: number[] = [];
-  val.forEach((item) => {
-    data.push(item.userId);
-  });
+  let data: string[] = val.reduce<string[]>(
+    (pre, cur) => pre.concat(cur.id),
+    []
+  );
   multipleSelectionIds.value = data;
   isSelection.value = val.length > 0 ? false : true;
+};
+
+// 处理角色
+const judgeRole = (id: string) => {
+  const role = roleListData.value.find((item) => item.id === id);
+  return role?.name;
 };
 </script>
 

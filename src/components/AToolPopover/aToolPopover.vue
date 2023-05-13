@@ -24,7 +24,7 @@
             class="demo-rich-content__name"
             style="font-size: 26px; font-weight: 500"
           >
-            {{ userStore.userInfo?.userName }}
+            {{ userStore.user?.userName }}
           </p>
           <p
             class="demo-rich-content__mention"

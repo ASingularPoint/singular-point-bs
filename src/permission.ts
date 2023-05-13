@@ -15,7 +15,7 @@ NProgress.configure({
 export const mainRouteName = "AppMain";
 
 export function routerBeforeEach() {
-  const store = useUserStore();
+  const userStore = useUserStore();
   const tagStore = useTagStore();
 
   router.beforeEach((to, from, next) => {
@@ -24,7 +24,7 @@ export function routerBeforeEach() {
     // page title
     document.title = getPageTitle(to.meta);
 
-    const accessToken = store.accessToken;
+    const accessToken = userStore.accessToken;
 
     if (accessToken) {
       if (to.name === "login") {
@@ -32,7 +32,7 @@ export function routerBeforeEach() {
         NProgress.done();
       } else {
         if (!router.hasRoute(to.name || "")) {
-          addRoutes(getRoutes(store.menuPerms), mainRouteName).then(
+          addRoutes(getRoutes(userStore.menus), mainRouteName).then(
             ({ flat }) => {
               const toMenu = flat.find((item) => item.fullPath === to.fullPath);
               if (toMenu) next({ name: toMenu.name });
