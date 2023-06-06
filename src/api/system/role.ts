@@ -12,7 +12,7 @@ export function getRoleList(
 
 export function getRoleSelectTree(): Promise<GetRoleListData[]> {
   return request({
-    url: "/role/selectTree",
+    url: "/role/select/by-tree",
     method: "get",
   });
 }
