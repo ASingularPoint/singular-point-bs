@@ -155,13 +155,14 @@ const pageInfo: IPagination = reactive({
 
 onMounted(() => {
   getData();
-  getRoleSelectTreeData();
 });
 
 // 获取数据
 const getData = () => {
   const { currentPage, pageSize } = pageInfo;
   loading.value = true;
+
+  // 获取用户列表
   GetUserList({
     ...searchForm,
     currentPage,
@@ -173,10 +174,8 @@ const getData = () => {
       pageInfo.total = res.total;
       loading.value = false;
     });
-};
 
-// 获取角色树
-const getRoleSelectTreeData = () => {
+  // 获取角色树
   getRoleSelectTree().then((res) => {
     roleListData.value = res;
   });
@@ -195,7 +194,6 @@ const onUserAdd = () => {
     props: {
       onSubmit: () => {
         getData();
-        getRoleSelectTreeData();
       },
     },
   });
@@ -208,7 +206,6 @@ const onUserBatchEdit = () => {
       ids: multipleSelectionIds.value,
       onSubmit: () => {
         getData();
-        getRoleSelectTreeData();
       },
     },
   });
@@ -242,7 +239,6 @@ const handleEdit = (event: Event, row: GetUserListData) => {
       id: row.id,
       onSubmit: () => {
         getData();
-        getRoleSelectTreeData();
       },
     },
   });
