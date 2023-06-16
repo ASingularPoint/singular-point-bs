@@ -18,13 +18,17 @@
           text-align: center;
         "
       >
-        <el-avatar :size="80" :icon="UserFilled" />
+        <el-avatar
+          :size="80"
+          :icon="UserFilled"
+          :src="userStore.userInfo?.avatar"
+        />
         <div>
           <p
             class="demo-rich-content__name"
             style="font-size: 26px; font-weight: 500"
           >
-            {{ userStore.user?.userName }}
+            {{ userStore.userInfo?.userName }}
           </p>
           <p
             class="demo-rich-content__mention"
