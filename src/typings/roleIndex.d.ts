@@ -1,7 +1,7 @@
 //  ********** RoleIndex *********
 
 interface GetRoleListRawParams {
-  search: string;
+  name: string;
 }
 interface GetRoleListParams
   extends CommonPaginationParams,
@@ -11,4 +11,8 @@ interface GetRoleListData {
   id: string;
   name: string;
   createTime: string;
+}
+
+interface AddRoleParams {
+  name: string;
 }

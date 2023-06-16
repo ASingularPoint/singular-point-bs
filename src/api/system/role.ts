@@ -4,7 +4,7 @@ export function getRoleList(
   data: GetRoleListParams
 ): Promise<CommonTable<GetRoleListData>> {
   return request({
-    url: "/system-role/list",
+    url: "/role",
     method: "get",
     params: data,
   });

@@ -2,7 +2,8 @@
   <div class="content">
     <TableHeader
       :isSelection="isSelection"
-      @add="onUserAdd"
+      placeholderValue="角色名"
+      @add="onRoleAdd"
       @edit="onUserBatchEdit"
       @remove="onUserBatchRemove"
       @refresh="refresh"
@@ -51,8 +52,8 @@
     </ATable>
     <APagination
       :pageInfo="pageInfo"
-      @handleSizeChange="handleSizeChange"
-      @handleCurrentChange="handleCurrentChange"
+      @handleSizeChange="getData"
+      @handleCurrentChange="getData"
     ></APagination>
   </div>
 </template>
@@ -66,7 +67,7 @@ import APagination from "@/components/APagination/aPagination.vue";
 import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 import { elmBtnBlur } from "@/utils/func";
 
-// import AddUserDialog from "./add/index";
+import AddRoleDialog from "./add/index";
 // import EditUserDialog from "./edit/index";
 // import BatchEditUserDialog from "./batchEdit/index";
 
@@ -86,10 +87,11 @@ const columns: Columns[] = [
     width: "50",
   },
   {
-    prop: "roleId",
+    prop: "id",
     label: "ID",
     width: "80",
     align: "left",
+    showOverflowTooltip: true,
   },
   {
     prop: "name",
@@ -118,7 +120,7 @@ const isSelection = ref<boolean>(true);
 
 const loading = ref<boolean>(false);
 const searchForm = reactive<GetRoleListRawParams>({
-  search: "",
+  name: "",
 });
 
 // 分页信息
@@ -154,20 +156,20 @@ const getData = () => {
 
 // 刷新数据
 const refresh = () => {
-  searchForm.search = "";
+  searchForm.name = "";
   tableData.value = [];
   getData();
 };
 
 // 添加
-const onUserAdd = () => {
-  // AddUserDialog({
-  //   props: {
-  //     onSubmit: () => {
-  //       getData();
-  //     },
-  //   },
-  // });
+const onRoleAdd = () => {
+  AddRoleDialog({
+    props: {
+      onSubmit: () => {
+        getData();
+      },
+    },
+  });
 };
 
 // 编辑
@@ -210,7 +212,7 @@ const onUserBatchRemove = () => {
 
 // 搜索回调
 const search = (val: string) => {
-  searchForm.search = val;
+  searchForm.name = val;
   getData();
 };
 
@@ -237,16 +239,6 @@ const handleDelete = (row: GetRoleListData) => {
 // 删除按钮失焦
 const btnRestore = (event: Event) => {
   elmBtnBlur(event);
-};
-
-// 每页展示数据的条数回调
-const handleSizeChange = (val: number) => {
-  getData();
-};
-
-// 当前页码的回调
-const handleCurrentChange = (val: number) => {
-  getData();
 };
 
 // 表格多选
