@@ -2,6 +2,7 @@
   <div class="content">
     <TableHeader
       :isSelection="isSelection"
+      placeholderValue="用户名"
       @add="onUserAdd"
       @edit="onUserBatchEdit"
       @remove="onUserBatchRemove"
@@ -93,39 +94,66 @@ const columns: Columns[] = [
     prop: "id",
     label: "ID",
     width: "100",
-    align: "left",
+    align: "center",
     showOverflowTooltip: true,
   },
   {
     prop: "userName",
     label: "用户名",
-    width: "180",
-    align: "left",
+    width: "100",
+    align: "center",
+    showOverflowTooltip: true,
   },
   {
     prop: "account",
     label: "账号",
-    width: "180",
-    align: "left",
+    width: "100",
+    align: "center",
+    showOverflowTooltip: true,
   },
   {
     prop: "role",
     label: "角色",
-    width: "180",
+    width: "100",
     slot: "role",
-    align: "left",
+    align: "center",
+  },
+  {
+    prop: "avatar",
+    label: "头像",
+    width: "100",
+    slot: "avatar",
+    align: "center",
+  },
+  {
+    prop: "email",
+    label: "邮箱",
+    width: "100",
+    align: "center",
+  },
+  {
+    prop: "phone",
+    label: "手机号",
+    width: "100",
+    align: "center",
+  },
+  {
+    prop: "phone",
+    label: "状态",
+    width: "100",
+    align: "center",
   },
   {
     prop: "createTime",
     width: "180",
     label: "创建时间",
-    align: "left",
+    align: "center",
   },
   {
     prop: "",
     label: "操作",
     slot: "operation",
-    align: "left",
+    align: "center",
   },
 ];
 
