@@ -70,7 +70,7 @@ import APopconfirm from "@/components/APopconfirm/aPopconfirm.vue";
 // import EditUserDialog from "./edit/index";
 // import BatchEditUserDialog from "./batchEdit/index";
 
-import { GetUserList, DeleteUser, BatchDeleteUser } from "@/api/system/user";
+import { getMenuList } from "@/api/system/menu";
 import { getRoleSelectTree } from "@/api/system/role";
 import { TimeFormat } from "@/utils/dataFormat";
 import { elmBtnBlur } from "@/utils/func";
@@ -163,8 +163,8 @@ const isSelection = ref<boolean>(true);
 const roleListData = ref<GetRoleListData[]>([]);
 
 const loading = ref<boolean>(false);
-const searchForm = reactive<GetUserListRawParams>({
-  userName: "",
+const searchForm = reactive<any>({
+  title: "",
 });
 
 // 分页信息
@@ -187,8 +187,8 @@ const getData = () => {
   const { currentPage, pageSize } = pageInfo;
   loading.value = true;
 
-  // 获取用户列表
-  GetUserList({
+  // 获取菜单列表
+  getMenuList({
     ...searchForm,
     currentPage,
     pageSize,
